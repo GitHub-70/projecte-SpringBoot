@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cy.pj.sys.dao.SysRoleDao">
+  
+     <update id="updateObject">  
+        update sys_roles
+         set
+           name=#{name},
+           note=#{note},
+           modifiedUser=#{modifiedUser},
+           modifiedTime=now()
+        where id=#{id}
+    </update>
+  
+      <!-- resultMap元素用于实现mybatis框架中的高级映射.
+      1)自定义"字段/属"性映射(表中的字段名与类中的属性不一致)
+      2)表嵌套查询映射
+      3)表关联查询映射(join)
+       -->
+      <resultMap type="com.cy.pj.sys.pojo.SysRoleMenu" id="sysRoleMenu">
+         <id  property="id" column="id" /><!-- 主键映射用id -->
+         <result property="name" column="name"/>
+         <result property="note" column="note"/>
+         <!-- collection一般应用在one2many的查询场景中 -->
+         <collection property="menuIds"
+                  column="id"
+              select="com.cy.pj.sys.dao.SysRoleMenuDao.findMenuIdsByRoleId">
+         </collection>
+      </resultMap>
+      <!-- 从角色表查询角色自身信息 -->
+      <select id="findObjectById" resultMap="sysRoleMenu">
+           select id,name,note
+           from sys_roles
+           where id=#{id}
+      </select>
+      <!--基于sql元素实现映射语句共性的封装，需要时使用include去包含-->
+      <sql id="queryWhereId">
+         from sys_roles
+         <where>
+           <if test="name!=null and name!=''">
+            name like concat("%",#{name},"%")
+           </if>
+         </where>
+       </sql>
+      <!-- resultType用于实现mybatis查询中简单查询结果的映射 -->
+      <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysRole">
+         select *
+         <include refid="queryWhereId"/>
+         order by createdTime desc
+         limit #{startIndex},#{pageSize}
+      </select>
+  
+      <select id="getRowCount" resultType="long">
+         select count(*)
+         <include refid="queryWhereId"/>
+      </select>
+      
+  </mapper>
