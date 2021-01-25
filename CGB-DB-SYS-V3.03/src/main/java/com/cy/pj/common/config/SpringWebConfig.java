@@ -16,8 +16,8 @@ public class SpringWebConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		//注册拦截器
 		registry.addInterceptor(new TimeAccessInterceptor())
-		//设置要拦截的路径
-//		.addPathPatterns("/user/doLogin");
-		.addPathPatterns("/user/doIndexUI");
+		//设置要拦截的路径:/user/doLogin
+		.addPathPatterns("/user/doLogin");
+//		.addPathPatterns("/user/doIndexUI");
 	}
 }

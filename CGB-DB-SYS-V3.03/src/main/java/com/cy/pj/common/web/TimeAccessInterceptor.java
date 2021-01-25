@@ -24,8 +24,9 @@ public class TimeAccessInterceptor implements HandlerInterceptor {
 		int hour=localDateTime.getHour();
 		System.out.println("hour="+hour);
 		if(hour<=6||hour>=23) 
+//		if(hour<=24)
 			throw new ServiceException("请在9:00~18:00之间访问");
-		return false;//true表示要执行后续拦截器方法或者目标@Controller对象方法
+		return true;//true表示要执行后续拦截器方法或者目标@Controller对象方法
 	}
 	/**控制层@Controller方法执行结束以后执行*/
 //	@Override
@@ -34,7 +35,7 @@ public class TimeAccessInterceptor implements HandlerInterceptor {
 //		System.out.println("===postHandle===");
 //	}
 	
-	/**控制层@Controller方法响应的view解析结束以后执行*/
+	/**控制层@Controller方法响应的view解析结束以后执行，常用于资源的释放，如ThreadLocal.remove*/
 //	@Override
 //	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 //			throws Exception {
