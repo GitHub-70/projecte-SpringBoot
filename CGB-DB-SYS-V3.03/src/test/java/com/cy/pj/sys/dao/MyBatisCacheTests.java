@@ -25,13 +25,17 @@ public class MyBatisCacheTests {
 		//3.释放资源
 		session1.close();
 	}
-	/**MyBatis二级缓存(SqlSession共享,默认开启,但是需要做简单配置)*/
+	/**MyBatis二级缓存(SqlSession共享,默认开启,但是需要做简单配置)--MapperStatement级别(或namespace级别)*/
 	@Test
 	void testSecondLevelCache() {
 		//1.创建SqlSession对象
 		SqlSession session1=ssf.openSession();
 		SqlSession session2=ssf.openSession();
-		//2.执行查询操作
+		/*
+		 * namespace中的 更改操作 可以设置flushCache=true,刷新缓存,防止脏数据 
+		 * --详见：SysMenuMapper.xml
+		 */
+		//2.执行查询操作---针对于SysMenuDao级别，每个方法执行后会被缓存 查询的结果
 		String statement="com.cy.pj.sys.dao.SysMenuDao.findObjects";
 		long t1=System.currentTimeMillis();
 		List<SysMenu> result1=session1.selectList(statement);
