@@ -33,6 +33,7 @@ public interface SysMenuDao {
 	 * 	基于id删除当前菜单对象
 	 * @param id
 	 * @return
+	 * 当开启二级缓存,没有在namespace的sql更新语句，没有更新缓存
 	 */
 	 @Delete("delete from sys_menus where id=#{id}")
 	 int deleteObject(Integer id);

@@ -13,7 +13,7 @@ import com.cy.pj.sys.pojo.SysDept;
 @Mapper
 public interface SysDeptDao {
       /**
-               * 查询所有部门以及部门的上级菜单信息
+       * 查询所有部门以及部门的上级菜单信息
        * @return
        */
 	  @Select("select c.*,p.name parentName from sys_depts c left join sys_depts p on c.parentId=p.id")

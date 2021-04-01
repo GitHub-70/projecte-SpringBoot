@@ -53,8 +53,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 //        //.....???????
 //        return userMenus;
 //	}
-	
-	@CacheEvict(value = "menuCache",allEntries = true)
+	/**
+	 * @CacheEvict
+	 * 	--allEntries = true 更新key为menuCache的缓存
+	 */
+//	@CacheEvict(value = "menuCache",allEntries = true)
 	@Override
 	public int updateObject(SysMenu entity) {
 	    //1.参数校验
@@ -69,8 +72,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 			throw new ServiceException("记录可能已经不存在了");
 		return rows;
 	}
-	
-	
+	/**
+	 * @CacheEvict
+	 * 	--allEntries = true 更新key为menuCache的缓存
+	 */
+//	@CacheEvict(value = "menuCache",allEntries = true)
 	@Override
 	public int saveObject(SysMenu entity) {
 		//1.参数校验
@@ -108,7 +114,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 			throw new ServiceException("记录可能已经不存在了");
 		return rows;
 	}
-    @Cacheable(value = "menuCache") //此注解描述的方法为一个缓存切入点方法
+	/**
+	 * @Cacheable
+	 * 		--该方法会去找key为menuCache 的缓存
+	 * 		--查询的结果会放入 menuCache 缓存中
+	 */
+//    @Cacheable(value = "menuCache") //此注解描述的方法为一个缓存切入点方法
 	@Override
 	public List<SysMenu> findObjects() {
 		return sysMenuDao.findObjects();

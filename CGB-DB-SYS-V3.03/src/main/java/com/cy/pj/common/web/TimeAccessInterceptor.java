@@ -23,8 +23,8 @@ public class TimeAccessInterceptor implements HandlerInterceptor {
 		//获取当前时间对应的小时
 		int hour=localDateTime.getHour();
 		System.out.println("hour="+hour);
-		if(hour<=6||hour>=23) 
-//		if(hour<=24)
+//		if(hour<=6||hour>=23) 
+		if(hour<=24)
 			throw new ServiceException("请在9:00~18:00之间访问");
 		return true;//true表示要执行后续拦截器方法或者目标@Controller对象方法
 	}

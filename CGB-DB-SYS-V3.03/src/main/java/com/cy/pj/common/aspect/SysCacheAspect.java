@@ -37,8 +37,8 @@ public class SysCacheAspect {
 		 Object result=cache.get("deptKey");//这里的deptKey目前为一个固定值
 		 if(result!=null)return result;
 		 result=jp.proceed();
-		 System.out.println("Put data to cache");
 		 cache.put("deptKey", result);
+		 System.out.println("Put data to cache");
 		 return result;
 	 }
 	 
