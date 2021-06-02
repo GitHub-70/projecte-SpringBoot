@@ -32,6 +32,8 @@ public class SysUserController {
 		System.out.println("==doLogin===");
 		//获取Subject对象(负责提交客户端的账号信息)
 		Subject subject=SecurityUtils.getSubject();
+		// 设置登录超时时间15分钟 默认超时时间为30分钟
+		subject.getSession().setTimeout(900000);
 		UsernamePasswordToken token=new UsernamePasswordToken();
 		token.setUsername(username);
 		token.setPassword(password.toCharArray());

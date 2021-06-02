@@ -108,7 +108,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
 		//5.封装查询结果并返回(交给SecurityManager对象)
 		Set<String> stringPermissions=new HashSet<>();
 		for(String per:permissions) {
-			if(!StringUtils.isEmpty(per)) {//StringUtil为spring框架工具类
+			if(!StringUtils.isEmpty(per)) {//StringUtils为spring框架工具类
 				stringPermissions.add(per);
 			}
 		}

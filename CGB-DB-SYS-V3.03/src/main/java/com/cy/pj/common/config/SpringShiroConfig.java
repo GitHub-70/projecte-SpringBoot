@@ -22,12 +22,15 @@ public class SpringShiroConfig {
 	@Bean
 	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
 	    DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+	    // 放行资源 用anon
 	    chainDefinition.addPathDefinition("/bower_components/**", "anon");
 	    chainDefinition.addPathDefinition("/build/**", "anon");
 	    chainDefinition.addPathDefinition("/dist/**", "anon");
 	    chainDefinition.addPathDefinition("/plugins/**", "anon");
 	    chainDefinition.addPathDefinition("/user/doLogin", "anon");
+	    // 登出 用logout
 	    chainDefinition.addPathDefinition("/doLogout", "logout");
+	    // 跳转到登录页 用user
 	    chainDefinition.addPathDefinition("/**", "user");
 	    return chainDefinition;
 	}

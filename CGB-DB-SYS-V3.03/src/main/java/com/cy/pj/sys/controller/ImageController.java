@@ -42,6 +42,7 @@ public class ImageController {
 //			String base64String = base64Str.substring(base64Str.indexOf(",")+1);
 			logger.info("base64String====::{}",base64String);
 			BASE64Decoder base64Decoder = new BASE64Decoder();
+			// 图片解码
 			byte[] decodeBuffer = base64Decoder.decodeBuffer(base64String);
 			logger.info("图片解码长度={}\n图片解码结果::{}",decodeBuffer.length, decodeBuffer);
 			for (int i = 0; i < decodeBuffer.length; i++) {

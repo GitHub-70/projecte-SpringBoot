@@ -6,7 +6,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+//@EnableScheduling // 启动定时任务
 @EnableCaching
 @EnableAsync //启动异步操作,底层会初始化一个线程池
 @SpringBootApplication

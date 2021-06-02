@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,11 +24,14 @@ public class TimeAccessInterceptor implements HandlerInterceptor {
 		LocalDateTime localDateTime=LocalDateTime.now();
 		//获取当前时间对应的小时
 		int hour=localDateTime.getHour();
-		System.out.println("hour="+hour);
-//		if(hour<=6||hour>=23) 
-		if(hour<=24)
+		System.out.println("获取当前时间hour="+hour);
+		System.out.println(request.getRequestURL()+"?"+request.getQueryString());
+		if(hour<=6||hour>=23)
 			throw new ServiceException("请在9:00~18:00之间访问");
+//		if(hour<=24)
+//			throw new ServiceException("请在9:00~18:00之间访问");
 		return true;//true表示要执行后续拦截器方法或者目标@Controller对象方法
+		
 	}
 	/**控制层@Controller方法执行结束以后执行*/
 //	@Override
