@@ -22,6 +22,7 @@ public class MyFilter implements Filter{
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// 初始化工作
 		count = new AtomicInteger(0);
+		System.out.println("--------count="+count+"---------");
 		
 		//获配置文件中的init-param初始化参数 即web.xml中init-param
 //		String param = filterConfig.getInitParameter("count");
@@ -38,6 +39,7 @@ public class MyFilter implements Filter{
 		
 		System.out.println("-------Myfilter-------");
 		// count自增
+		System.out.println("--------count="+count+"---------");
 		count.incrementAndGet();
 		ServletContext servletContext = req.getServletContext();
 		//将 访问服务器数量值 放入到web服务器Servlet上下文ServletContext中
@@ -45,9 +47,9 @@ public class MyFilter implements Filter{
 		String requestURI = req.getRequestURI();
 		StringBuffer requestURL = req.getRequestURL();
 		// 请求url及请求参数
-		System.out.println("requestURI-->"+requestURI+"?"+req.getQueryString());
+		System.out.println("requestURI-->"+requestURI+"?"+servletContext.getAttribute("count"));
 		
-		System.out.println("requestURL-->"+requestURI+"?"+req.getQueryString());
+		System.out.println("requestURL-->"+requestURI+"?"+servletContext.getAttribute("count"));
 		// 放行，转到下一个过滤器
 		chain.doFilter(request, response);
 	}

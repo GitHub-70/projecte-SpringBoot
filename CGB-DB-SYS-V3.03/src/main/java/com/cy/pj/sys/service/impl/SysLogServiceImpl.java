@@ -59,7 +59,7 @@ public class SysLogServiceImpl implements SysLogService {
 		Page<SysLog> page=PageHelper.startPage(pageCurrent.intValue(), pageSize);
 		//查询当前页数据
 		List<SysLog> records=sysLogDao.findPageObjects(username);
-		return new PageObject<>(page.getTotal(), records,pageSize, pageCurrent);
+		return new PageObject<>(page.getTotal(), records, pageSize, pageCurrent);
 	}
 	
 }

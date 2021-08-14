@@ -1,4 +1,4 @@
-package com.cy.pj.common.web;
+package com.cy.pj.common.exception;
 
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

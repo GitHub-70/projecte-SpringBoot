@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -62,10 +63,11 @@ public class ShiroUserRealm extends AuthorizingRealm {
 //		super.setCredentialsMatcher(cMatcher);
 //	}
 	
-	/**负责认证信息的获取和封装*/
+	/**负责-认证信息的-获取和封装*/
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
+		System.out.println("==doGetAuthenticationInfo信息认证==");
 		//1.获取登录用户名
 		UsernamePasswordToken uToken=(UsernamePasswordToken)token;
 		String username=uToken.getUsername();
@@ -78,18 +80,18 @@ public class ShiroUserRealm extends AuthorizingRealm {
 		ByteSource credentialsSalt=ByteSource.Util.bytes(user.getSalt());
 		SimpleAuthenticationInfo info=
 		   new SimpleAuthenticationInfo(
-				user,//principal 表示身份
+				user,//principal 表示身份 可通过SecurityUtils.getSubject().getPrincipal()获取
 				user.getPassword(),//hashedCredentials 已加密的密码
 				credentialsSalt, //credentialsSalt 加密盐
 				getName());//realmName
 		return info;//这个对象会返回给securityManager对象,然后进行认证分析
 	}
 	
-	/**负责授权信息的获取和封装*/
+	/**负责-授权信息的-获取和封装*/
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		System.out.println("==doGetAuthorizationInfo==");
+		System.out.println("==doGetAuthorizationInfo授权信息==");
 		//1.获取登录用户的用户ID
 		SysUser user=(SysUser)principals.getPrimaryPrincipal();
 		//2.基于登录用户id查询用户角色id并校验

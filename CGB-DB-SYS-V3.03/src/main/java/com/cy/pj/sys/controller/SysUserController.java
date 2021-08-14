@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cy.pj.common.pojo.JsonResult;
+import com.cy.pj.common.utils.UserThreadLocal;
 import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.service.SysUserService;
 import com.cy.pj.sys.service.impl.SysUserServiceImpl;
@@ -32,13 +33,15 @@ public class SysUserController {
 		System.out.println("==doLogin===");
 		//获取Subject对象(负责提交客户端的账号信息)
 		Subject subject=SecurityUtils.getSubject();
-		// 设置登录超时时间15分钟 默认超时时间为30分钟
+		// 设置登录超时时间15分钟 默认超时时间为30分钟  不超时为负数
 		subject.getSession().setTimeout(900000);
 		UsernamePasswordToken token=new UsernamePasswordToken();
 		token.setUsername(username);
 		token.setPassword(password.toCharArray());
 		//提交账号信息给securityManager对象
 		token.setRememberMe(isRememberMe);//设置记住我
+		// 将用户信息 交给一个 独立线程
+//		UserThreadLocal.set(token);
 		subject.login(token);
 		return new JsonResult("login ok");
 	}
