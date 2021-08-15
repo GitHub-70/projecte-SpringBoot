@@ -42,6 +42,7 @@ public class MyEveryDayjob implements Job{
 		//
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文[{}]信息",jobDetailDataMap.get("dataKey_2"));
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文[{}]信息",triggerDataMap.get("TriggerKey_2"));
+		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,上一次执行时间[{}]",context.getPreviousFireTime());
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,下一次执行时间[{}]",context.getNextFireTime());
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,Jon实例[{}]",jobInstance);
 		logger.info("===定时任务Myjob执行结束===");

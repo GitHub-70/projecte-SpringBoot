@@ -8,6 +8,7 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.JobListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,7 @@ public class MyPrintWritejob implements Job{
 		//
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文[{}]信息",jobDetailDataMap.get("dataKey_1"));
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文[{}]信息",triggerDataMap.get("TriggerKey_1"));
+		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,上一次执行时间[{}]",context.getPreviousFireTime());
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,下一次执行时间[{}]",context.getNextFireTime());
 		logger.info("===通过JobExecutionContext获取MyPrintWritejob上下文,Jon实例[{}]",jobInstance);
 		logger.info("===定时任务Myjob执行结束===");
