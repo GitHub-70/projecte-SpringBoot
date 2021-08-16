@@ -125,8 +125,12 @@ public class QuartzConfig {
 		listenerManager.addJobListener(myJobListener);
 		// 注册 trigger 监听器
 		listenerManager.addTriggerListener(myTriggerListener);
-		// 绑定 jobDetail 与 cronTrigger
+		// 绑定 jobDetail 与 cronTrigger---方式一
 		scheduler.scheduleJob(jobDetail, cronTrigger);
+		// 绑定 jobDetail 与 cronTrigger---方式二
+//		scheduler.addJob(jobDetail, true);
+//		scheduler.scheduleJob(cronTrigger);// cronTrigger1
+//		scheduler.scheduleJob(cronTrigger);// cronTrigger2
 		scheduler.start();
 		return scheduler;
 	}
