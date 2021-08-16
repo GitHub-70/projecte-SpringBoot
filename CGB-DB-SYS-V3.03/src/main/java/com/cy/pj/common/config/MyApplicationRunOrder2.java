@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
  * 		如：读取配置文件，初始化数据库等
  * @author Administrator
  *
+ * 实现CommandLineRunner也可以，只是run方法中的参数不同
  */
 
 @Configuration
