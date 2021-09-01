@@ -68,7 +68,6 @@ public class QuartzConfig {
 		
 		 // 构建Trigger实例
         Date startDate = new Date();
-        startDate.setTime(startDate.getTime() + 5000);
 
         Date endDate = new Date();
         endDate.setTime(startDate.getTime() + 5000);
@@ -86,6 +85,18 @@ public class QuartzConfig {
 	
 	/**
 	 * 配置触发器 Trigger
+	 * 		--触发时间
+	 * 		startTime和endTime指定的Trigger会被触发的时间区间。
+	 * 		在这个区间之外，Trigger是不会被触发的.
+	 * 		--Misfire(错失触发）策略
+	 * 		类似的Scheduler资源不足的时候，或者机器崩溃重启等，有可能某一些Trigger在应该触发的时间点没有被触发，也就是Miss Fire了。
+	 * 		MisFire的触发是有一个阀值，这个阀值是配置在JobStore的。比RAMJobStore是org.quartz.jobStore.misfireThreshold。
+	 * 		只有超过这个阀值，才会算MisFire。小于这个阀值，Quartz是会全部重新触发。
+	 * 		--优先级
+	 * 		当scheduler比较繁忙的时候，可能在同一个时刻，有多个Trigger被触发了，但资源不足（比如线程池不足）
+	 * 		需要注意的是，优先级只有在同一时刻执行的Trigger之间才会起作用，如果一个Trigger是9:00，
+	 * 		另一个Trigger是9:30。那么无论后一个优先级多高，前一个都是先执行。
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -93,7 +104,6 @@ public class QuartzConfig {
 		
 		 // 构建Trigger实例
         Date startDate = new Date();
-        startDate.setTime(startDate.getTime() + 5000);
 
         Date endDate = new Date();
         endDate.setTime(startDate.getTime() + 5000);

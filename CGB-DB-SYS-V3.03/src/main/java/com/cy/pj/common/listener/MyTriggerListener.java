@@ -23,6 +23,7 @@ public class MyTriggerListener implements TriggerListener{
 
 	@Override
 	public void triggerFired(Trigger trigger, JobExecutionContext context) {
+		logger.info("********trigger监听器：[{}],对[{}]进行监听，设置合适的Missfire策略********", getName(), trigger.getKey());
 		logger.info(" Trigger 被触发了，此时Job 上的 execute() 方法将要被执行");
 		
 	}

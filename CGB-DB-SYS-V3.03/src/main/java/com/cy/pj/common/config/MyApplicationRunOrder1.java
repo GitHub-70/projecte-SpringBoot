@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * 该类用来项目启动时，初始化一些数据
@@ -15,7 +16,7 @@ import org.springframework.core.annotation.Order;
  * 实现CommandLineRunner也可以，只是run方法中的参数不同
  */
 
-@Configuration
+@Component
 @Order(1) // 执行顺序
 public class MyApplicationRunOrder1 implements ApplicationRunner{
 
