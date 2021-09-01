@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.utils.AssertUtils;
@@ -25,14 +26,23 @@ import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.service.impl.SysUserServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 
+// 运行环境为PowerMockRunner
 @RunWith(PowerMockRunner.class)
+// 前期准备的静态代理对象
 @PrepareForTest({ StringUtil.class, ShiroUtils.class })
 public class SysUserServiceTests {
 
-	
+	/**
+	 * @InjectMocks注解修饰，会进入具体的实现中 相当于@Autowired
+	 * 
+	 * TODO @MockBean 待研究
+	 */
 	@InjectMocks
 	private SysUserServiceImpl sysUserServiceImpl;
 	
+	/**
+	 * @Mock注解修饰，不会进入具体的实现，被mock掉的对象
+	 */
 	@Mock
 	private SysUserDao sysUserDao;
 	
@@ -127,6 +137,8 @@ public class SysUserServiceTests {
 		Mockito.when(sysUserDao.updatePassword(newPassword, newSalt, userId)).thenReturn(1);
 		
 		sysUserServiceImpl.updatePassword("a", "aaa", "aaa");
+		// 用于期望结果，与实际结果的对比
+		assertEquals(1, 1);
 		
 	}
 	
@@ -179,6 +191,7 @@ public class SysUserServiceTests {
 		Mockito.when(sysUserDao.validById(id, valid, user.getUsername())).thenReturn(1);
 		
 		sysUserServiceImpl.validById(id, valid);
+		// 用于期望结果，与实际结果的对比
 		assertEquals(1, 1);
 		
 	}
