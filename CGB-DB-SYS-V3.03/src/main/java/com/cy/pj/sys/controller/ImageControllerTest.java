@@ -29,6 +29,7 @@ public class ImageControllerTest {
 	@ResponseBody
 	public String image(String base64Str) throws Exception {
 		String newBase64Str = null;
+		// base64加密后的前缀
 		if (!StringUtils.isEmpty(base64Str)) {
 			newBase64Str = base64Str.replace("data:image/png;base64,", "");
 //			newBase64Str = base64Str.substring(base64Str.indexOf(",")+1);
