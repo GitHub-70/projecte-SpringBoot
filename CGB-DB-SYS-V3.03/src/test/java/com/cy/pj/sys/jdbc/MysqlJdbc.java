@@ -48,6 +48,8 @@ public class MysqlJdbc {
 	/**
 	 * 批处理+手动提交事务：100万数据大概用时9分钟
 	 * 在url中添加参数：rewriteBatchedStatements=true 100万数据大概用时一分半钟
+	 * 		rewriteBatchedStatements=true 该参数添加后，insert table values (...),(...)插入数据
+	 * 		验证：基础sql骨架中，以分号;结尾,报错提示中会显示
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -62,18 +64,19 @@ public class MysqlJdbc {
 			String url = "jdbc:mysql://192.168.189.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8&rewriteBatchedStatements=true";
 			String username = "root";
 			String password = "root";
-			String sqlMode = "INSERT INTO `sys_users_test` VALUES (1, 'admin', 'c4c33035c5d8e840616c128db9f87b25', '016a0948-b581-43aa-8a5f-9bb76a80e737', 'admin@t.cn', '13624356789', 1, 2, NULL, '2020-05-08 17:21:55', NULL, NULL, 'k1');";
+			String sqlMode = "INSERT INTO `sys_user_roles_test` VALUES (?, ?, ?)";
 			String sql = "INSERT INTO `sys_users_test` VALUES (?, ?, 'c4c33035c5d8e840616c128db9f87b25', '016a0948-b581-43aa-8a5f-9bb76a80e737', 'admin@t.cn', '13624356789', 1, 2, NULL, '2020-05-08 17:21:55', NULL, NULL, ?)";
 			//3.1 获取连接
 			connection = DriverManager.getConnection(url, username, password);
 			//3.2 设置非自动提交事务
 			connection.setAutoCommit(false);
 			//4. 获取statement对象 装载sql骨架
+//			prepareStatement = connection.prepareStatement(sqlMode);
 			prepareStatement = connection.prepareStatement(sql);
 			// java.sql.Date
 			java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
 			
-			int y = 4000021;
+			int y = 5000021;
 			// 开始记录时间
 			long startTime = System.currentTimeMillis();
 			for (int i = 0; i < 1000000; i++) {
@@ -83,6 +86,11 @@ public class MysqlJdbc {
 				prepareStatement.setString(3, "k" + String.valueOf(y));
 				y++;
 				prepareStatement.addBatch();
+				
+//				prepareStatement.setInt(1, i+1);
+//				prepareStatement.setInt(2, i+1);
+//				prepareStatement.setInt(3, i+1);
+//				prepareStatement.addBatch();
 				
 				//错误 SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?
 //				prepareStatement.addBatch(sql);
