@@ -27,6 +27,8 @@ public class SpringShiroConfig {
 	    chainDefinition.addPathDefinition("/build/**", "anon");
 	    chainDefinition.addPathDefinition("/dist/**", "anon");
 	    chainDefinition.addPathDefinition("/plugins/**", "anon");
+	    chainDefinition.addPathDefinition("/base64-js-master/**", "anon");
+	    chainDefinition.addPathDefinition("/jquerybase64/**", "anon");
 	    chainDefinition.addPathDefinition("/user/doLogin", "anon");
 	    // 登出 用logout
 	    chainDefinition.addPathDefinition("/doLogout", "logout");

@@ -29,6 +29,10 @@ public class PageController {
 	//http://localhost/menu/menu_list
 	//rest风格的url,{}代表是变量表达式
 	
+	// 此路径的映射 可能造成一些静态资源无法解析--500错误 如：
+	// http://localhost:8082/base64-js-master/base64js.min.js 
+	// 无法解析 Error resolving template [sys/base64js.min.js]
+	// 因此 多增加了一个文件夹 dele-sys-mapping
 	@RequestMapping("{module}/{moduleUI}")
 	public String doModuleUI(@PathVariable String moduleUI) {
 		return "sys/"+moduleUI;
