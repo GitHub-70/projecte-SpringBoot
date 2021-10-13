@@ -102,7 +102,7 @@
 	  //var str = Base64.encode('12343');
 	  
 	  // base64编码	注意拦截器中静态资源的放行
-	  var str = $.base64.encode('12343');
+	  var str = $.base64.encode('Aa@88888');
 	  alert(str);
 	  
 	  $.post(url,params,function(result){
@@ -116,6 +116,18 @@
 		  return false;//防止刷新时重复提交
 	  });
   }
+  
+  //https://www.cnblogs.com/easyToCode/p/6888813.html
+  //已知Math.random -> 随机数字16位小数,已知number.toString(36) -> 0-9 a-Z的字符串
+  // so,生成固定长度的随机字符串
+  function random(length) {
+	    var str = Math.random().toString(36).substr(2);
+	    if (str.length>=length) {
+	        return str.substr(0, length);
+	    }
+	    str += random(length-str.length);
+	    return str;
+	}
 </script>
 </body>
 </html>
