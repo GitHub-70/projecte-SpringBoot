@@ -38,6 +38,7 @@ public class ImageController {
 	public String image(String base64Str) throws IOException {
 		String base64String = null;
 		if (!StringUtils.isEmpty(base64Str)) {
+			// base64加密后的前缀
 			base64String = base64Str.replace("data:image/png;base64,", "");
 //			String base64String = base64Str.substring(base64Str.indexOf(",")+1);
 			logger.info("base64String====::{}",base64String);

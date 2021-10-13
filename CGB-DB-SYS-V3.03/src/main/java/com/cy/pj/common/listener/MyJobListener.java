@@ -27,7 +27,7 @@ public class MyJobListener implements JobListener{
 	 */
 	@Override
 	public void jobToBeExecuted(JobExecutionContext context) {
-		logger.info("job监听器:[{}],开始对[{}]执行监听工作", getName(), context.getJobDetail().getJobClass());
+		logger.info("********job监听器:[{}],开始对[{}]执行监听工作*********", getName(), context.getJobDetail().getJobClass());
 		logger.info("这里可以完成众多任务前(公共任务)的一些资源准备工作或日志记录");
 		
 	}
@@ -48,6 +48,7 @@ public class MyJobListener implements JobListener{
 	public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
 		logger.info("job监听器:[{}],对[{}]善后处理工作", getName(), context.getJobDetail().getJobClass());
 		logger.info("这里可以完成众多任务后(公共任务)进行资源销毁工作或做一些任务状态处理工作");
+		logger.info("********job监听器:[{}]处理结束*********", getName());
 	}
 
 }

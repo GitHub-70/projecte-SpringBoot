@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +15,10 @@ import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.common.utils.AssertUtils;
 import com.cy.pj.common.utils.ShiroUtils;
-import com.cy.pj.sys.dao.SysMenuDao;
-import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.pojo.SysUserDept;
-import com.cy.pj.sys.pojo.SysUserMenu;
 import com.cy.pj.sys.service.SysUserService;
 import com.github.pagehelper.util.StringUtil;
 
@@ -88,7 +84,8 @@ public class SysUserServiceImpl implements SysUserService {
 		AssertUtils.isArgValid(id==null||id<1, "参数值无效");
 		AssertUtils.isArgValid(valid != 0 && valid != 1, "状态值无效");
 		//2.修改用户状态
-		int rows=sysUserDao.validById(id, valid,"admin");//这里的admin先假设为登录用户
+		SysUser user=ShiroUtils.getUser();
+		int rows=sysUserDao.validById(id, valid, user.getUsername());//这里的admin先假设为登录用户
 		if(rows==0)
 			throw new ServiceException("记录可能已经不存在");
 		return rows;
