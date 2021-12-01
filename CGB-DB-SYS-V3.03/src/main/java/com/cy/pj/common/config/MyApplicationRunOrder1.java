@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  * 
  * 实现CommandLineRunner也可以，只是run方法中的参数不同
+ * 
+ * 运行在监听器之前
+ * 		监听器-->过滤器-->拦截器
  */
 
 @Component
@@ -24,7 +27,10 @@ public class MyApplicationRunOrder1 implements ApplicationRunner{
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		logger.info("==========MyApplicationRunOrder1  init Data===========");
+		logger.info("==========MyApplicationRunOrder1  init Data start===========");
+		logger.info("当前系统：{}", System.getProperty("os.name"));
+		logger.info("配置文件所在基础目录：{}", System.getProperty("user.dir"));
+		logger.info("==========MyApplicationRunOrder1  init Data end===========");
 		
 	}
 

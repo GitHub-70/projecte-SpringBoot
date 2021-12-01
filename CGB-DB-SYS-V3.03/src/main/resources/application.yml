@@ -57,6 +57,7 @@ management:
         include:
         - "*"
 
-
+swagger:
+  enable: true
 
 

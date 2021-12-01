@@ -13,6 +13,9 @@ import org.springframework.core.annotation.Order;
  * @author Administrator
  *
  * 实现CommandLineRunner也可以，只是run方法中的参数不同
+ * 
+ * 运行在监听器之前
+ * 		监听器-->过滤器-->拦截器
  */
 
 @Configuration
@@ -23,7 +26,8 @@ public class MyApplicationRunOrder2 implements ApplicationRunner{
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		logger.info("==========MyApplicationRunOrder2  init Data===========");
+		logger.info("==========MyApplicationRunOrder2  init Data start===========");
+		logger.info("==========MyApplicationRunOrder2  init Data end===========");
 		
 	}
 
