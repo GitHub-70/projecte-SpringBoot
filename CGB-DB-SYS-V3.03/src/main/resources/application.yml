@@ -20,7 +20,8 @@ spring:
     prefix: classpath:/templates/pages/
     suffix: .html
   aop:
-    proxy-target-class: false  #false表示为目标对象基于JDK方式产生代理对象
+    #2.0版本及以后：false表示为目标对象基于JDK方式产生代理对象，不配置此项，或为true均使用cglib方式产生代理对象
+    proxy-target-class: false  
   task:
     execution:
       pool:
