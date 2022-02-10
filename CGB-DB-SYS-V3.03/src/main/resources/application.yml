@@ -67,6 +67,8 @@ jasypt:
     algorithm: PBEWithMD5AndDES
     # 用来使用新的算法，默认为org.jasypt.salt.NoOPIVGenerator,这样的话我们就无法使用命令行中生成的密文
 #    iv-generator-classname: org.jasypt.salt.RandomIVGenerator
+    # 显示的指定自定义加密器(与配置类定义bean的名称一致)
+#    bean: encryptorConfig
 
 
 swagger:
