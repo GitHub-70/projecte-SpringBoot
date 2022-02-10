@@ -35,7 +35,10 @@ public class SysCacheAspect {
 	 public Object doAround(ProceedingJoinPoint jp)throws Throwable{
 		 System.out.println("Get Data from cache");
 		 Object result=cache.get("deptKey");//这里的deptKey目前为一个固定值
-		 if(result!=null)return result;
+		 // 如果缓存不为null 直接返回
+		 if(result!=null)
+			 return result;
+		 // 否则执行目标方法
 		 result=jp.proceed();
 		 cache.put("deptKey", result);
 		 System.out.println("Put data to cache");

@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,12 +27,19 @@ public class SysLogServiceImpl implements SysLogService {
 	//将写日志操作放在一个独立的事务
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Async //此注解描述的方法会运行在spring框架提供的一个线程中
+	/**
+	 * @Async 在默认的情况下，使用的是SimpleAsyncTaskExecutor线程池，
+	 * 		  该线程无法实现线程的重用，每次调用都会开启一个新的线程，若系统
+	 * 		  不断地创建线程，最终会导致系统占用内存过高，引发OOM错误
+	 * 		  可查看控制台日志，线程Id不断增加 ervice-thread-i
+	 */
 	@Override
 	public void saveObject(SysLog entity) {
 		String tName=Thread.currentThread().getName();
 		System.out.println("SysLogService.saveObject.thread.name="+tName);
 		try{Thread.sleep(2000);}catch(Exception e) {}
 	    sysLogDao.insertObject(entity);
+	    
 	}
 	/**
 	 * @RequiresPermissions 为shiro框架用于描述切入点方法的一个注解对象，一旦

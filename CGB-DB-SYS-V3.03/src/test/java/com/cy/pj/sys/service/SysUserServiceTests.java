@@ -59,6 +59,7 @@ public class SysUserServiceTests {
 	@Rule
 	private ExpectedException thrown = ExpectedException.none();
 	
+	
 	/**
 	 * 验证更新密码
 	 */
@@ -136,9 +137,9 @@ public class SysUserServiceTests {
 		int userId = Mockito.anyInt();
 		Mockito.when(sysUserDao.updatePassword(newPassword, newSalt, userId)).thenReturn(1);
 		
-		sysUserServiceImpl.updatePassword("a", "aaa", "aaa");
+		int updatePassword = sysUserServiceImpl.updatePassword("a", "aaa", "aaa");
 		// 用于期望结果，与实际结果的对比
-		assertEquals(1, 1);
+		assertEquals(1, updatePassword);
 		
 	}
 	

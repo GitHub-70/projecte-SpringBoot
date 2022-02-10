@@ -24,14 +24,24 @@ import com.cy.pj.sys.service.SysMenuService;
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
 
-	@Autowired
+//	@Autowired
 	private SysMenuDao sysMenuDao;
 	
-	@Autowired
+//	@Autowired
 	private SysRoleMenuDao sysRoleMenuDao;
 	
-	@Autowired
+//	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
+	
+	@Autowired
+	public SysMenuServiceImpl (SysMenuDao sysMenuDao,
+								SysRoleMenuDao sysRoleMenuDao,
+								SysUserRoleDao sysUserRoleDao) {
+		this.sysMenuDao = sysMenuDao;
+		this.sysRoleMenuDao = sysRoleMenuDao;
+		this.sysUserRoleDao = sysUserRoleDao;
+		
+	}
 	
 	@Override
 	public List<SysUserMenu> findUserMenus(Integer userId) {

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.cy.pj.common.filter.MyFilter;
 
-@Configuration
+//@Configuration
 public class FilterConfig {
 
 	//定义过滤路径

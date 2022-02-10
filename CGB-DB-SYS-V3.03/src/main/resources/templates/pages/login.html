@@ -103,10 +103,11 @@
 	  
 	  // base64编码	注意拦截器中静态资源的放行
 	  var str = $.base64.encode('Aa@88888');
-	  alert(str);
+	  //alert(str);
 	  
 	  $.post(url,params,function(result){
 		  console.log("login.result",result);
+		  alert(result);
 		  if(result.state==1){
 			//跳转到indexUI对应的页面---加一个随机数，防止浏览器以为同一个请求，不刷新页面
 			location.href="doIndexUI?t="+Math.random();

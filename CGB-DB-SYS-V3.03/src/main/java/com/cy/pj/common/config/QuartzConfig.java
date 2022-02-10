@@ -32,7 +32,7 @@ import com.cy.pj.common.schedul.MyPrintWritejob;
  */
 
 
-@Configuration
+//@Configuration
 public class QuartzConfig {
 	
 	@Autowired

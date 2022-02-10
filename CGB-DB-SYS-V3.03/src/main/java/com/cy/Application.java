@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.context.WebApplicationContext;
 
 //@EnableScheduling // 启动定时任务
 @EnableCaching
@@ -18,9 +19,10 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	// SpringBoot项目打war包
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		
-		return builder.sources(Application.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		
+//		return builder.sources(Application.class);
+//	}
+	
 }
