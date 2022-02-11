@@ -27,7 +27,7 @@ public class EncryptorConfig implements StringEncryptor {
 //		simpleStringPBEConfig.setPoolSize("1");
 //		simpleStringPBEConfig.setProviderName("SunJCE");
 //		simpleStringPBEConfig.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
-////		simpleStringPBEConfig.setIvGeneratorClassName("org.jasypt.salt.NoOpIVGenerator");
+//		simpleStringPBEConfig.setIvGeneratorClassName("org.jasypt.iv.NoIvGenerator");
 //		simpleStringPBEConfig.setStringOutputType("base64");
 //		
 //		
