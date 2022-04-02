@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,9 +26,20 @@ public class ImageControllerTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ImageControllerTest.class);
 	
+	/**
+	 * https://www.cnblogs.com/xiaoqi/p/spring-valid.html
+	 * @Valid（全部验证）与@Validated(可分组验证)
+	 * SpringBoot 2.3.0之后放弃了默认对 javax.validation.Valid 的支持。
+	 * 
+	 * https://blog.csdn.net/weixin_38118016/article/details/80977207/
+	 * @param base64Str
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("imageTest")
 	@ResponseBody
-	public String image(String base64Str) throws Exception {
+	public String image(@Validated String base64Str) throws Exception {
+		
 		String newBase64Str = null;
 		// base64加密后的前缀
 		if (!StringUtils.isEmpty(base64Str)) {

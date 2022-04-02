@@ -43,6 +43,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 		
 	}
 	
+	/**
+	 * 此处可优化成一个联合查询，只需连接数据库一次
+	 */
 	@Override
 	public List<SysUserMenu> findUserMenus(Integer userId) {
 		//1.基于用户id找角色id

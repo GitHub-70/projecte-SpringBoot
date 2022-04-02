@@ -1,5 +1,9 @@
 package com.cy.pj.common.exception;
 
+import java.util.Enumeration;
+
+import javax.servlet.ServletRequest;
+
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -53,6 +57,29 @@ public class GlobalExceptionHandler {
 	}
 	//.....
 	//.....
+	
+	/**
+	 * 控制层请求参数异常处理
+	 * @param e
+	 * @param request
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	//@ResponseBody
+	public JsonResult doHandleException(Exception e, ServletRequest request) {
+		if(e instanceof IllegalArgumentException) {
+			Enumeration<String> parameterNames = request.getParameterNames();
+			String nextElement = null;
+			if (parameterNames.hasMoreElements()) {
+				String element = parameterNames.nextElement();
+				nextElement = nextElement + element;
+				System.out.println("参数：[" +element+ "]can not null");
+			}
+			return new JsonResult(nextElement);
+		}
+		
+		return new JsonResult(e);//封装异常信息
+	}
 }
 
 

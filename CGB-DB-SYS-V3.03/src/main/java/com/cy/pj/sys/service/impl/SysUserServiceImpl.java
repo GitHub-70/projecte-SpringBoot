@@ -1,10 +1,12 @@
 package com.cy.pj.sys.service.impl;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -58,9 +60,14 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public int updatePassword(String sourcePassword, String newPassword, String cfgPassword) {
 		//1.参数校验
-		AssertUtils.isArgValid(StringUtil.isEmpty(sourcePassword), "原密码不能为空");
-		AssertUtils.isArgValid(StringUtil.isEmpty(newPassword), "新密码不能为空");
-		AssertUtils.isArgValid(!newPassword.equals(cfgPassword), "两次新密码输入不一致");
+//		AssertUtils.isArgValid(StringUtil.isEmpty(sourcePassword), "原密码不能为空");
+//		AssertUtils.isArgValid(StringUtil.isEmpty(newPassword), "新密码不能为空");
+//		AssertUtils.isArgValid(!newPassword.equals(cfgPassword), "两次新密码输入不一致");
+		Assert.isTrue(!StringUtil.isEmpty(sourcePassword), MessageFormat.format("原密码 {0} can not null", sourcePassword));
+//		AssertUtils.isArgValid(StringUtil.isEmpty(sourcePassword), MessageFormat.format("原密码 {0} can not null", sourcePassword));
+		AssertUtils.isArgValid(StringUtil.isEmpty(newPassword), MessageFormat.format("新密码 {0} can not null", newPassword));
+		AssertUtils.isArgValid(!newPassword.equals(cfgPassword), MessageFormat.format("两次密码{0},{1}输入不一致", newPassword, cfgPassword));
+
 		//验证原密码是否正确
 		SysUser user=ShiroUtils.getUser();
 		String hashedPwd=user.getPassword();
@@ -77,7 +84,7 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 	
 	@Transactional(rollbackFor = IllegalArgumentException.class)//由此注解描述的方法为一个事务切入点方法,后续运行时会对它描述的描述的方法进行事务控制
-	@RequiredLog(value="禁用启用")//此注解描述的方法为一个日志切入点方法
+	@RequiredLog(value="自定义注解方法的描述--禁用启用")//此注解描述的方法为一个日志切入点方法
 	@Override
 	public int validById(Integer id, Integer valid){
 		//1.参数校验
@@ -118,7 +125,7 @@ public class SysUserServiceImpl implements SysUserService {
 		return map;
 	}
 	@Transactional
-	@RequiredLog(value="保存用户")
+	@RequiredLog(value="自定义注解方法的描述--保存用户")
 	@Override
 	public int saveObject(SysUser entity, Integer[] roleIds) {
 		//1.参数校验
@@ -164,7 +171,7 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Transactional(readOnly = true)
-	@RequiredLog(value="分页查询")
+	@RequiredLog(value="自定义注解方法的描述--分页查询")
 	@Override
 	public PageObject<SysUserDept> findPageObjects(String username, Long pageCurrent) {
 		String tName=Thread.currentThread().getName();
