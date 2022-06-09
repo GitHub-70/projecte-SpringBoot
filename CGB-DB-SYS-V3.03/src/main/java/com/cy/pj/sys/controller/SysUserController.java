@@ -58,7 +58,7 @@ public class SysUserController {
 	}
 	
 	@RequestMapping("doSaveObject")
-	public JsonResult doSaveObject(SysUser entity,Integer[]roleIds) {
+	public JsonResult doSaveObject(SysUser entity,Integer[]roleIds) throws Exception {
 		sysUserService.saveObject(entity, roleIds);
 		return new JsonResult("save ok");
 	}

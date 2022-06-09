@@ -83,6 +83,7 @@ public class SysUserServiceImpl implements SysUserService {
 		return rows;
 	}
 	
+	// https://blog.csdn.net/weixin_44299027/article/details/95231808
 	@Transactional(rollbackFor = IllegalArgumentException.class)//由此注解描述的方法为一个事务切入点方法,后续运行时会对它描述的描述的方法进行事务控制
 	@RequiredLog(value="自定义注解方法的描述--禁用启用")//此注解描述的方法为一个日志切入点方法
 	@Override
@@ -124,10 +125,11 @@ public class SysUserServiceImpl implements SysUserService {
 		//log.info("time {}",t2-t1);
 		return map;
 	}
-	@Transactional
+	
+//	@Transactional// 两个保存为同一事物
 	@RequiredLog(value="自定义注解方法的描述--保存用户")
 	@Override
-	public int saveObject(SysUser entity, Integer[] roleIds) {
+	public int saveObject(SysUser entity, Integer[] roleIds) throws Exception {
 		//1.参数校验
 		AssertUtils.isArgValid(entity==null, "保存对象不能为空");
 		AssertUtils.isArgValid(entity.getUsername()==null||"".equals(entity.getUsername()), "用户名不能为空");
@@ -151,10 +153,19 @@ public class SysUserServiceImpl implements SysUserService {
 		//2.3 将用户信息写入到数据库
 		int rows=sysUserDao.insertObject(entity);
 		//3.保存用户与角色关系数据
-		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+		// 抛出RuntimeException或其子类 异常，回滚事务
+//		System.out.println(1/0);// 模拟出错
+//		if(true) {
+//			// 抛出Exception或其子类 异常，不会回滚事务,除非将该事务rollbackFor定义为Exception
+//			throw new Exception("自定义Exception 异常测试事务");
+//		}
+		
+//		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+		transationalTest(entity, roleIds);
 		return rows;
 	}
 	
+	@Transactional// 两个保存为同一事物
 	@Override
 	public int updateObject(SysUser entity, Integer[] roleIds) {
 		//1.参数校验
@@ -166,6 +177,7 @@ public class SysUserServiceImpl implements SysUserService {
 		AssertUtils.isServiceValid(rows==0, "记录可能已经不存在了");
 		//3.保存用户与角色关系数据
 		sysUserRoleDao.deleteObjectsByUserId(entity.getId());
+//		System.out.println(1/0);// 模拟出错
 		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
 		return rows;
 	}
@@ -192,4 +204,10 @@ public class SysUserServiceImpl implements SysUserService {
 		return new PageObject<>(rowCount, records, pageSize, pageCurrent);
 	}
 
+	
+	@Transactional
+	public void transationalTest(SysUser entity, Integer[] roleIds) {
+		System.out.println(1/0);// 模拟出错
+		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+	}
 }

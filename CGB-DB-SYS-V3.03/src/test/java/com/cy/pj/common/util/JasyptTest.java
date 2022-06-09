@@ -23,7 +23,7 @@ public class JasyptTest {
     @Test
     public void getPass(){
         String name = encryptor.encrypt("hello");
-        System.out.println("加密结果："+name);//解密
+        System.out.println("加密结果："+name);//加密
         
     }
     
@@ -44,6 +44,8 @@ public class JasyptTest {
     	 * 算法:PBEWithMD5AndDES
     	 * 
     	 * iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    	 * 
+    	 * 注意与配置文件中的配置不一样
     	 */
     	
         String username3 = encryptor.decrypt("tUg8s24AQu/y5U2+g8mkpw==");

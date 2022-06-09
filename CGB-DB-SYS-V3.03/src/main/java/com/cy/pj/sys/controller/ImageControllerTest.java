@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -63,5 +64,12 @@ public class ImageControllerTest {
 			return fileName;
 		}
 		return null;
+	}
+	
+	@Value("${swagger.enable}")
+	private static String enable;
+	public static void main(String[] args) {
+//		File file = new File("D:/sdfd.txt");
+		System.out.println(enable);
 	}
 }

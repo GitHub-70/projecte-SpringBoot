@@ -9,6 +9,18 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * 
+ * @author Administrator
+ * 使用@EnableAsync 需自定义线程池，
+ * 因@EnableAsync默认使用的线程池是
+ * SimpleAsyncTaskExecutor，而SimpleAsyncTaskExecutor 不是真的线程池，
+ * 这个类不重用线程，每次调用都会创建一个新的线程。并发大的时候会产生严重的性能问题。
+ * 
+ * https://blog.csdn.net/suixinfeixiangfei/article/details/123398420
+ *
+ */
+
 //@EnableScheduling // 启动定时任务
 @EnableCaching
 @EnableAsync //启动异步操作,底层会初始化一个线程池

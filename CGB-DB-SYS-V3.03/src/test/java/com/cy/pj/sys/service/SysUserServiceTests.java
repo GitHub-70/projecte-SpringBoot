@@ -106,6 +106,7 @@ public class SysUserServiceTests {
 		//mock 静态方法
 		PowerMockito.mockStatic(ShiroUtils.class);
 		Mockito.when(ShiroUtils.getUser()).thenReturn(sysUser);
+		PowerMockito.verifyStatic(ShiroUtils.class);
 		
 		// 无效代码
 //		Mockito.when(simpleHash.toHex()).thenReturn("asalt");

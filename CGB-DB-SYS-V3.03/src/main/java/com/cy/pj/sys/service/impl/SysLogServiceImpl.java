@@ -26,7 +26,7 @@ public class SysLogServiceImpl implements SysLogService {
 	//将来希望此业务方法始终运行在一个独立事务中,传播特性设置为Propagation.REQUIRES_NEW
 	//将写日志操作放在一个独立的事务
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	@Async //此注解描述的方法会运行在spring框架提供的一个线程中
+	@Async("getSuSuAsyncTaskExecutor2") //此注解描述的方法会运行在spring框架提供的一个线程中
 	/**
 	 * @Async 在默认的情况下，使用的是SimpleAsyncTaskExecutor线程池，
 	 * 		  该线程无法实现线程的重用，每次调用都会开启一个新的线程，若系统

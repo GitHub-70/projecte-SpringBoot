@@ -13,6 +13,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 过滤器拦截所有请求，依赖于servlet
+ * @author Administrator
+ *
+ */
 public class MyFilter implements Filter{
 	
 	// 请求服务器网站资源量

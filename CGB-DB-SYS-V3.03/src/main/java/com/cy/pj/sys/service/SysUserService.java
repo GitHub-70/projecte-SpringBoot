@@ -16,7 +16,7 @@ public interface SysUserService {
 	
 	int updateObject(SysUser entity,Integer[]roleIds);
 	
-    int saveObject(SysUser entity,Integer[]roleIds);
+    int saveObject(SysUser entity,Integer[]roleIds) throws Exception;
     
 	int validById(Integer id,Integer valid);
 

@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+### 忽略/doc目录下所有文件 ###
+/doc
+/190043.png
+/185923.png
+/174746.png
