@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,6 +26,8 @@ import org.springframework.web.context.WebApplicationContext;
 @EnableCaching
 @EnableAsync //启动异步操作,底层会初始化一个线程池
 @SpringBootApplication
+//可使用AopContext.currentProxy() 生成独立的动态代理对象，常用于spring代理对象的事务管理
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class Application extends SpringBootServletInitializer{
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

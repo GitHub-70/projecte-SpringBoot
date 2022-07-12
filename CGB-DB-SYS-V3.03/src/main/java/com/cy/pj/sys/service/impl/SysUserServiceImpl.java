@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.Assert;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cy.pj.common.annotation.RequiredLog;
@@ -43,10 +45,11 @@ import com.github.pagehelper.util.StringUtil;
    
  */
 //@Slf4j
-@Transactional(readOnly = false,
-               rollbackFor = Exception.class,
-               timeout = 60,
-               isolation = Isolation.READ_COMMITTED)
+
+//@Transactional(readOnly = false,
+//               rollbackFor = Exception.class,
+//               timeout = 60,
+//               isolation = Isolation.READ_COMMITTED)
 @Service
 public class SysUserServiceImpl implements SysUserService {
 
@@ -126,8 +129,9 @@ public class SysUserServiceImpl implements SysUserService {
 		return map;
 	}
 	
-//	@Transactional// 两个保存为同一事物
-	@RequiredLog(value="自定义注解方法的描述--保存用户")
+	// 注意类上加了@Transactional 注解
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+//	@RequiredLog(value="自定义注解方法的描述--保存用户")
 	@Override
 	public int saveObject(SysUser entity, Integer[] roleIds) throws Exception {
 		//1.参数校验
@@ -161,11 +165,34 @@ public class SysUserServiceImpl implements SysUserService {
 //		}
 		
 //		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
-		transationalTest(entity, roleIds);
+		
+		// test1 外部有事务，内部事务新起事务，不处理异常，外部事务处理异常，不影响外部事务
+		try {
+			SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+			currentProxy.transationalTest(entity, roleIds);
+		} catch (Exception e) {
+			System.out.println("内部事务出现异常，外部处理，不影响外部事务");
+		}
+		
+		// test2 同一个类事务方法调用。外部有事务，内部事务新起事务，不处理异常，外部事务处理异常，该内部事务不生效
+//		try {
+//			transationalTest(entity, roleIds);
+//		} catch (Exception e) {
+//			System.out.println("内部事务出现异常，外部处理，该事务不生效");
+//		}
+		
+		// test3 外部有事务，内部事务处理异常，内部事务不生效
+//		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+//		currentProxy.transationalTestHandlerExeption(entity, roleIds);
+		
+		// test4 外部无事务，内部事务不处理异常，内部事务生效，不影响之前操作
+		// 同类中的方法调用，外部无事务，使用AopContext生成要生成的动态代理类，使内部事务生效，注意启动类要加特定注解
+//		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+//		currentProxy.transationalTest(entity, roleIds);
 		return rows;
 	}
 	
-	@Transactional// 两个保存为同一事物
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)// 两个保存为同一事物
 	@Override
 	public int updateObject(SysUser entity, Integer[] roleIds) {
 		//1.参数校验
@@ -173,11 +200,19 @@ public class SysUserServiceImpl implements SysUserService {
 		AssertUtils.isArgValid(entity.getUsername()==null||"".equals(entity.getUsername()), "用户名不能为空");
 		AssertUtils.isArgValid(roleIds==null||roleIds.length==0, "必须为用户分配角色");
 		//2.保存用户自身信息
-		int rows=sysUserDao.updateObject(entity);
+//		int rows=sysUserDao.updateObject(entity);
+		
+		// test1 同一类的事务方法调用，内部事务不生效
+//		int rows=transationalUpdateTest(entity);
+		
+		// test2 外部事务出现异常，外部事务回滚，不影响内部事务
+		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+		int rows=currentProxy.transationalUpdateTest(entity);
+		
 		AssertUtils.isServiceValid(rows==0, "记录可能已经不存在了");
 		//3.保存用户与角色关系数据
 		sysUserRoleDao.deleteObjectsByUserId(entity.getId());
-//		System.out.println(1/0);// 模拟出错
+		System.out.println(1/0);// 模拟出错
 		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
 		return rows;
 	}
@@ -204,10 +239,42 @@ public class SysUserServiceImpl implements SysUserService {
 		return new PageObject<>(rowCount, records, pageSize, pageCurrent);
 	}
 
-	
-	@Transactional
+	/**
+	 * 为了测试，内部事务出现异常，不影响外部事务
+	 * @param entity
+	 * @param roleIds
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
 	public void transationalTest(SysUser entity, Integer[] roleIds) {
-		System.out.println(1/0);// 模拟出错
 		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+		System.out.println(1/0);// 模拟出错
+	}
+	
+	/**
+	 * 为了测试，内部新起事务，内部处理事务异常，内部事务不生效
+	 * @param entity
+	 * @param roleIds
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+	public void transationalTestHandlerExeption(SysUser entity, Integer[] roleIds) {
+		try {
+			sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+			System.out.println(1/0);// 模拟出错
+		} catch (RuntimeException e) {
+			System.out.println("事务测试，内部事务为新事务，出现异常，不向外抛异常");
+		}
+	}
+	
+	/**
+	 * 为了测试，内部新起事务，外部事务出现异常
+	 * @param entity
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+	public int transationalUpdateTest(SysUser entity) {
+		int rows=sysUserDao.updateObject(entity);
+		entity.setModifiedUser("myself1");
+		int rows2=sysUserDao.updateObject(entity);
+		return rows2;
 	}
 }

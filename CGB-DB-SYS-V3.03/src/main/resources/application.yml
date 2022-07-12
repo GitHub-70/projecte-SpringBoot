@@ -22,7 +22,8 @@ spring:
     suffix: .html
   aop:
     #2.0版本及以后：false表示为目标对象基于JDK方式产生代理对象，不配置此项，或为true均使用cglib方式产生代理对象
-    proxy-target-class: false  
+#    proxy-target-class: false  
+    proxy-target-class: true  
   task:
     execution:
       pool:
