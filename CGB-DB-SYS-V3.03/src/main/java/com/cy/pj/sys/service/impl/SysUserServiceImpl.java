@@ -130,7 +130,12 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 	
 	// 注意类上加了@Transactional 注解
-	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	/**
+	 * mysql  事务的默认隔离级别 REPEATABLE_READ
+	 * oracle 事务的默认隔离级别 READ_COMMITTED
+	 * spring 默认的事务为读写事务
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
 //	@RequiredLog(value="自定义注解方法的描述--保存用户")
 	@Override
 	public int saveObject(SysUser entity, Integer[] roleIds) throws Exception {
@@ -206,8 +211,19 @@ public class SysUserServiceImpl implements SysUserService {
 //		int rows=transationalUpdateTest(entity);
 		
 		// test2 外部事务出现异常，外部事务回滚，不影响内部事务
+//		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+//		int rows=currentProxy.transationalUpdateTest(entity);
+		
+		// test3 同一个AOP代理对象，两个新起事务均生效
+//		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
+//		int rows1=currentProxy.transationalUpdateTest(entity);
+//		int rows=currentProxy.transationalUpdateTest2(entity);
+		
+		// test4 为了测试，上一个事务加了X（排它锁）锁，该事物挂起上一个事务，
+		// 该事务一直获取锁超时
+		int rows4=sysUserDao.updateObject(entity);
 		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
-		int rows=currentProxy.transationalUpdateTest(entity);
+		int rows=currentProxy.transationalUpdateTest2(entity);
 		
 		AssertUtils.isServiceValid(rows==0, "记录可能已经不存在了");
 		//3.保存用户与角色关系数据
@@ -277,4 +293,18 @@ public class SysUserServiceImpl implements SysUserService {
 		int rows2=sysUserDao.updateObject(entity);
 		return rows2;
 	}
+	
+	/**
+	 * 为了测试，用同一个AOP代理对象,该事务是否生效
+	 * @param entity
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+	public int transationalUpdateTest2(SysUser entity) {
+		entity.setModifiedUser("myself2");
+		
+		int rows2=sysUserDao.updateObject(entity);
+		return rows2;
+	}
+	
 }
