@@ -67,7 +67,22 @@ public class SysUserServiceTests {
 	public void updatePassword_should_thrown_IllegalArgumentException_when_oldPassword_isEmpty() {
 		
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("原密码不能为空");
+//		thrown.expectMessage("原密码不能为空");
+		thrown.expectMessage("原密码  can not null");
+		
+		sysUserServiceImpl.updatePassword("", "a", "aa");
+		
+	}
+	
+	/**
+	 * 或者使用注解定义抛出的期望异常
+	 * 验证更新密码
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void updatePassword_should_thrown_IllegalArgumentException_when_oldPassword_isBlank() {
+		
+//		thrown.expect(IllegalArgumentException.class);
+//		thrown.expectMessage("原密码  can not null");
 		
 		sysUserServiceImpl.updatePassword("", "a", "aa");
 		
