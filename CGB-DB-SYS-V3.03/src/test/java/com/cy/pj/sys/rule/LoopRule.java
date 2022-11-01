@@ -33,4 +33,9 @@ public class LoopRule implements TestRule {
             }
         };
     }
+    
+    
+    public double getRandomMath(){
+		return Math.random();
+	}
 }
