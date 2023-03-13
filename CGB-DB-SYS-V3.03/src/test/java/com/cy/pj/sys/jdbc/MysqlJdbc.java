@@ -19,7 +19,7 @@ public class MysqlJdbc {
 			//1. 注册数据库驱动
 			Class.forName("com.mysql.jdbc.Driver");
 			//2.定义url/username/password/sql
-			String url = "jdbc:mysql://192.168.189.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8";
+			String url = "jdbc:mysql://192.168.137.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8";
 			String username = "root";
 			String password = "root";
 			String sqlMode = "INSERT INTO `sys_users_test` VALUES (1, 'admin', 'c4c33035c5d8e840616c128db9f87b25', '016a0948-b581-43aa-8a5f-9bb76a80e737', 'admin@t.cn', '13624356789', 1, 2, NULL, '2020-05-08 17:21:55', NULL, NULL, 'k1');";

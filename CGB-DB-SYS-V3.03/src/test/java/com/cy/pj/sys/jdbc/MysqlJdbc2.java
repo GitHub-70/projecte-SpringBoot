@@ -15,6 +15,9 @@ public class MysqlJdbc2 {
 	/**
 	 *  以insert table values(...),(...),(...)形式插入
 	 *  注意堆内存溢出
+	 *  一千万数据插入 140980 毫秒
+	 *
+	 *  https://zhuanlan.zhihu.com/p/522297200
 	 * 
 	 * @param args
 	 */
@@ -27,7 +30,7 @@ public class MysqlJdbc2 {
 			//1. 注册数据库驱动
 			Class.forName("com.mysql.jdbc.Driver");
 			//2.定义url/username/password/sql
-			String url = "jdbc:mysql://192.168.189.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8&rewriteBatchedStatements=true";
+			String url = "jdbc:mysql://192.168.137.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8&rewriteBatchedStatements=true";
 			String username = "root";
 			String password = "root";
 			String sqlMode = "INSERT INTO `sys_users_test` VALUES ";
@@ -43,12 +46,12 @@ public class MysqlJdbc2 {
 			long startTime = System.currentTimeMillis();
 			// 发送一个空的sql骨架
 			prepareStatement = connection.prepareStatement(" ");
-			int i = 7000021;
+			int i = 21;
 			for (int x = 0; x < 200; x++) {
-				for (int j = 0; j < 5000; j++) {
+				for (int j = 0; j < 50000; j++) {
 					sqlPre.append("(").append(i).append(",");
 					sqlPre.append("'user-").append(i).append("',");
-					sqlPre.append("'c4c33035c5d8e840616c128db9f87b25', '016a0948-b581-43aa-8a5f-9bb76a80e737', 'admin@t.cn', '13624356789', 1, 2, NULL, '2020-05-08 17:21:55', NULL, NULL,");
+					sqlPre.append("'c4c33035c5d8e840616c128db9f87b25', '016a0948-b581-43aa-8a5f-9bb76a80e737', 'admin@t.cn', '13624356789', 1, 2, NULL, '2020-05-08 17:21:55', NULL,");
 					sqlPre.append("'k").append(i).append("'),");
 					i++;
 				}
