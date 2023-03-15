@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 
@@ -45,7 +46,7 @@ public class SysUserMapperTest {
     public void writeFileByQuerySysUserTest() throws IOException {
 
         List<SysUser> sysUsers = new ArrayList<>();
-        int pageSize = 50000;
+        int pageSize = 100000;
         Long startIndex = 0L;
 
         long start = System.currentTimeMillis();
@@ -58,8 +59,10 @@ public class SysUserMapperTest {
             }
 
             writeDataFile(sysUsers);
+
             startIndex += pageSize;
-            pageSize += pageSize;
+            // 制造内存溢出
+//            pageSize += pageSize;
 
         } while (sysUsers.size() <= pageSize);
 
@@ -67,7 +70,7 @@ public class SysUserMapperTest {
         System.out.println("数据导出文件所用时长：" + (end -start));
     }
 
-    private void writeDataFile(List<SysUser> sysUsers) throws IOException {
+    public void writeDataFile(List<SysUser> sysUsers) throws IOException {
         final String split = "#@|";
         final String newLine = "\r\n";
         StringBuffer textContent = new StringBuffer();
@@ -110,9 +113,20 @@ public class SysUserMapperTest {
             fileContent.append(modifiedUser).append(newLine);
             textContent.append(fileContent);
         }
+
         String url = "E:\\file\\20230309\\stringformat.txt";
+        File file = new File(url);
+        if (!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+            // 判断文件是否存在，不存在则创建
+            if (!file.exists()){
+                file.createNewFile();
+            }
+        }
+
+        // 写出数据到文件
         try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(new File(url),true),Charset.forName("UTF-8")))){
+                new FileOutputStream(file,true),Charset.forName("UTF-8")))){
             String content = textContent.toString();
             bufferedWriter.write(content,0,content.length());
         }

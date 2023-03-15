@@ -38,13 +38,18 @@
            </if>
          </where>
        </sql>
-       
 
+
+
+    <!--sql limit 9000000,100000 优化思路,从第900万条开始取10万条，前面的900万条查询是多余的
+            可以利用 从第900万条开始取10万条，只查询主键，筛选出10万条，通过主键关联 只需回表
+            10万次，查询需要的值
+     -->
+    <!-- SELECT * FROM sys_users_test ORDER BY id ASC limit #{startIndex},#{pageSize} -->
       <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysUser">
-         select *
-         <include refid="queryWhereId"/>
-         order by id asc
-         limit #{startIndex},#{pageSize}
+        SELECT * FROM sys_users_test a
+        INNER JOIN(SELECT id FROM sys_users_test ORDER BY id ASC limit #{startIndex},#{pageSize}) b
+        ON a.id = b.id
       </select>
   
       <select id="getRowCount" resultType="long">
