@@ -9,10 +9,16 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * 注意切面的执行循序
+ * 		围绕目标方法，是一个一个切面圆，内层切面圆是order2 AOP,外层切面圆是order1 AOP
+ */
 @Aspect
 @Component
+@Order(1)
 public class SysTimeAspect {
 
 	@Pointcut("bean(sysUserServiceImpl)")

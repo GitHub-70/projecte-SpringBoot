@@ -27,6 +27,10 @@ import net.coobird.thumbnailator.Thumbnails.Builder;
 import net.coobird.thumbnailator.util.ThumbnailatorUtils;
 import sun.misc.BASE64Decoder;
 
+/**
+ * import sun.misc.BASE64Decoder无法找到
+ * JDK升级从1.8升级到9.0.1,发现JDK中的lib\tools.jar和JRE中的lib\rt.jar已从Java SE 9中删除
+ */
 @RestController
 @RequestMapping("/")
 public class ImageController {

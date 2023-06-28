@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.cy.pj.common.annotation.SysTimeTest;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.Assert;
 import org.springframework.aop.framework.AopContext;
@@ -110,6 +111,7 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 保证数据的一致性
 	 */
 	@Transactional(readOnly = true) //所有的查询方法建议readOnly=true (性能会比较高)
+	@SysTimeTest
 	@Override
 	public Map<String, Object> findObjectById(Integer id) {
 		//long t1=System.currentTimeMillis();//直接在类方法中添加代码会违背开闭原则
