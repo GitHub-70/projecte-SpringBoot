@@ -75,7 +75,18 @@ public class SysLogAspect {
 	 }
 	 @Autowired
 	 private SysLogService sysLogService;
-	 private void saveUserLog(ProceedingJoinPoint jp,long time)throws Throwable {
+
+	/**
+	 * 		getAnnotation()方法用于获取指定 类型 的注解，如果指定类型的注解不存在，则返回null。
+	 * 		getDeclaredAnnotation()方法用于获取指定类型的注解，不考虑继承关系，只获取当前类中声明的注解。
+	 * 如果指定类型的注解不存在，则返回null。
+	 * 		总结来说，getAnnotation()方法会考虑继承关系，可以获取到从父类继承而来的注解，
+	 * 		而getDeclaredAnnotation()方法只获取当前类中声明的注解，不考虑继承关系
+	 * @param jp
+	 * @param time
+	 * @throws Throwable
+	 */
+	private void saveUserLog(ProceedingJoinPoint jp,long time)throws Throwable {
 		 //1.获取用户行为日志
 		 //1.1获取ip地址
 		 String ip=IPUtils.getIpAddr();

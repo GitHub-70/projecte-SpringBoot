@@ -65,6 +65,15 @@
         </encoder>
     </appender>
 
+    <!--sql 日志-->
+    <!--<logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+    </root>-->
+
+
     <!-- error 日志-->
     <!-- RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
     <!-- 以下的大概意思是：1.先按日期存日志，日期变了，将前一天的日志文件名重命名为XXX%日期%索引，新的日志仍然是project_error.log -->

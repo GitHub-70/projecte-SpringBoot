@@ -20,6 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
  * 
  * https://blog.csdn.net/suixinfeixiangfei/article/details/123398420
  *
+ * 项目启动失败：The method's class, com.google.common.collect.FluentIterable, is available from the following locations:
+ *     jar:file:/E:/repository/idea_repo/springboot_repo/com/google/guava/guava/18.0/guava-18.0.jar!/com/google/common/collect/FluentIterable.class
+ *     发现可能使用 guava 版本冲突原因，在swagger2.0.0版本中引入了guava依赖，导致版本冲突
+ *
  */
 
 //@EnableScheduling // 启动定时任务

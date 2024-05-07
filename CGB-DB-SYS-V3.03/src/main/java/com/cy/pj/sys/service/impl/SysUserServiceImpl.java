@@ -223,7 +223,7 @@ public class SysUserServiceImpl implements SysUserService {
 		
 		// test4 为了测试，上一个事务加了X（排它锁）锁，该事物挂起上一个事务，
 		// 该事务一直获取锁超时
-		int rows4=sysUserDao.updateObject(entity);
+//		int rows4=sysUserDao.updateObject(entity);
 		SysUserServiceImpl currentProxy = (SysUserServiceImpl)AopContext.currentProxy();
 		int rows=currentProxy.transationalUpdateTest2(entity);
 		
@@ -234,6 +234,7 @@ public class SysUserServiceImpl implements SysUserService {
 		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
 		return rows;
 	}
+
 
 	@Transactional(readOnly = true)
 	@RequiredLog(value="自定义注解方法的描述--分页查询")
@@ -300,8 +301,13 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 为了测试，用同一个AOP代理对象,该事务是否生效
 	 * @param entity
 	 * @return
+	 * 总结下NESTED的回滚特性
+	 * 主事务和嵌套事务属于同一个事务
+	 * 嵌套事务出错回滚不会影响到主事务
+	 * 主事务回滚会将嵌套事务一起回滚了
 	 */
-	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+//	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.NESTED)
 	public int transationalUpdateTest2(SysUser entity) {
 		entity.setModifiedUser("myself2");
 		

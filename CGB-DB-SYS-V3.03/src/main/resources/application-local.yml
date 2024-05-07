@@ -32,6 +32,17 @@ spring:
         keep-alive: 60000
         queue-capacity: 256
       thread-name-prefix: db-service-thread-
+
+## sql 日志
+#  jpa:
+#    # 启用 SQL 日志
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        # 格式化输出的 SQL 日志
+#        format_sql: true
+
+
 #mybatis
 mybatis:
   mapper-locations:
@@ -52,6 +63,7 @@ shiro:
 logging:
   level:
     com.cy: debug
+    springfox: error
 
 management:
   endpoints:

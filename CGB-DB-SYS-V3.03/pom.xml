@@ -118,6 +118,37 @@
 			<version>3.17</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.documents4j/documents4j-local -->
+		<dependency>
+			<groupId>com.documents4j</groupId>
+			<artifactId>documents4j-local</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documents4j</groupId>
+			<artifactId>documents4j-transformer-msoffice-word</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+
+		<!--显示声明 guava 版本依赖，排除 documents4j 中的 guava 版本与 powermock 中的 guava 版本冲突-->
+		<!-- documents4j的 1.0.3版本中的 guava 版本是18.0版本，
+		但是 powermock 的 2.0.2版本中的 guava 版本是20.0版本，所以需要排除powermock中的guava版本冲突 -->
+
+		<!--通过 pom 文件中 右击选项 Diagrams，show dependency 展示依赖关系图中，
+		同时选中 show groupId:artifactId:version(即maven图标) 和 show Neighbours of Selected Node得知-->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -183,13 +214,6 @@
     		<artifactId>jasypt-spring-boot-starter</artifactId>
     		<version>3.0.3</version>
 		</dependency>
-		
-
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-		<!-- <dependency> <groupId>org.apache.poi</groupId> <artifactId>poi-ooxml</artifactId> 
-			<version>3.17</version> </dependency> https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas 
-			<dependency> <groupId>org.apache.poi</groupId> <artifactId>poi-ooxml-schemas</artifactId> 
-			<version>3.17</version> </dependency> -->
 
 
 	</dependencies>
