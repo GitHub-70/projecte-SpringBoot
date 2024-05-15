@@ -7,6 +7,7 @@ import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.googlecode.aviator.AviatorEvaluator;
 
 @Controller
 @RequestMapping("/")
@@ -68,8 +69,12 @@ public class ImageControllerTest {
 	
 	@Value("${swagger.enable}")
 	private static String enable;
+
+
 	public static void main(String[] args) {
-//		File file = new File("D:/sdfd.txt");
-		System.out.println(enable);
+		// 表达式
+		String expression = "a + b";
+		Long result = (Long) AviatorEvaluator.exec(expression, 1, 2);
+		System.out.println("Result: " + result); // Output: Result: 3
 	}
 }
