@@ -1,6 +1,7 @@
 package com.cy.pj.sys.controller;
 
 
+import io.swagger.annotations.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -13,20 +14,46 @@ import com.cy.pj.common.utils.UserThreadLocal;
 import com.cy.pj.sys.pojo.SysUser;
 import com.cy.pj.sys.service.SysUserService;
 import com.cy.pj.sys.service.impl.SysUserServiceImpl;
-
+@Api(tags = "用户模块")
 @RestController
 @RequestMapping("/user/")
 public class SysUserController {
 
 	@Autowired
 	private SysUserService sysUserService;
-	
+
+	@ApiOperation(value = "修改密码",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "pwd", value = "旧密码", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "newPwd", value = "新密码", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "cfgPwd", value = "确认密码", required = true, dataType = "String")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "修改密码成功"),
+			@ApiResponse(code = 500, message = "修改密码失败"),
+			@ApiResponse(code = 400, message = "参数错误"),
+			@ApiResponse(code = 401, message = "用户未登录"),
+			@ApiResponse(code = 402, message = "用户名或密码错误"),
+			@ApiResponse(code = 403, message = "用户无权限"),
+			@ApiResponse(code = 404, message = "资源不存在"),
+			@ApiResponse(code = 405, message = "请求方法错误")
+	})
 	@RequestMapping("doUpdatePassword")
 	public JsonResult doUpdatePassword(String pwd,String newPwd,String cfgPwd) {
 		sysUserService.updatePassword(pwd, newPwd, cfgPwd);
 		return new JsonResult("update ok");
 	}
-	
+
+	@ApiOperation(value = "用户登录",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "isRememberMe", value = "是否记住我", required = true, dataType = "boolean")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "登录成功"),
+			@ApiResponse(code = 0, message = "登录失败")
+	})
 	@RequestMapping("doLogin")
 	public JsonResult doLogin(String username,String password,
 			boolean isRememberMe) {
@@ -45,30 +72,74 @@ public class SysUserController {
 		subject.login(token);
 		return new JsonResult("login ok");
 	}
-	
+
+	@ApiOperation(value = "根据id查询用户信息",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "查询成功"),
+			@ApiResponse(code = 0, message = "查询失败")
+	})
 	@RequestMapping("doFindObjectById")
 	public JsonResult doFindObjectById(Integer id) {
 		return new JsonResult(sysUserService.findObjectById(id));
 	}
-	
+
+	@ApiOperation(value = "修改用户信息",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "entity", value = "用户信息", required = true, dataType = "SysUser"),
+			@ApiImplicitParam(name = "roleIds", value = "角色id数组", required = true, dataType = "Integer[]")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "修改成功"),
+			@ApiResponse(code = 0, message = "修改失败")
+	})
 	@RequestMapping("doUpdateObject")
 	public JsonResult doUpdateObject(SysUser entity,Integer[]roleIds) {
 		sysUserService.updateObject(entity, roleIds);
 		return new JsonResult("update ok");
 	}
-	
+
+	@ApiOperation(value = "保存用户信息",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "entity", value = "用户信息", required = true, dataType = "SysUser"),
+			@ApiImplicitParam(name = "roleIds", value = "角色id数组", required = true, dataType = "Integer[]")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "保存成功"),
+			@ApiResponse(code = 0, message = "保存失败")
+	})
 	@RequestMapping("doSaveObject")
 	public JsonResult doSaveObject(SysUser entity,Integer[]roleIds) throws Exception {
 		sysUserService.saveObject(entity, roleIds);
 		return new JsonResult("save ok");
 	}
-	
+
+	@ApiOperation(value = "修改用户状态",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer"),
+			@ApiImplicitParam(name = "valid", value = "用户状态", required = true, dataType = "Integer")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "修改成功"),
+			@ApiResponse(code = 0, message = "修改失败")
+	})
 	@RequestMapping("doValidById")
 	public JsonResult doValidById(Integer id,Integer valid){
 		sysUserService.validById(id, valid);
 		return new JsonResult("update ok");
 	}
-	
+
+	@ApiOperation(value = "查询用户信息",notes= "方法的备注说明")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "pageCurrent", value = "当前页", required = true, dataType = "Long")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 1, message = "查询成功"),
+			@ApiResponse(code = 0, message = "查询失败")
+	})
 	@RequestMapping("doFindPageObjects")
 	public JsonResult doFindPageObjects(String username,Long pageCurrent) {
 		return new JsonResult(sysUserService.findPageObjects(username, pageCurrent));

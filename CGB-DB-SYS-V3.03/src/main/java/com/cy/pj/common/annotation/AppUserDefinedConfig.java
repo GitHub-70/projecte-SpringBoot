@@ -1,6 +1,6 @@
 package com.cy.pj.common.annotation;
 
-import com.cy.pj.common.config.CorsConfig;
+import com.cy.pj.common.config.SwaggerConfig;
 import com.cy.pj.common.config.SpringWebConfig;
 import com.cy.pj.common.selector.MyImportSelector;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;

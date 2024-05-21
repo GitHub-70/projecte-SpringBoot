@@ -72,10 +72,18 @@ public class SpringShiroConfig {
 	    chainDefinition.addPathDefinition("/base64-js-master/**", "anon");
 	    chainDefinition.addPathDefinition("/jquerybase64/**", "anon");
 	    chainDefinition.addPathDefinition("/user/doLogin", "anon");
+		// swagger2 相关资源放行 用anon  具体的资源路径在 springfox-swagger2-ui-2.9.2.jar包中
+		// 接口请求地址 http://localhost:8082/swagger-ui.html
+	    chainDefinition.addPathDefinition("/swagger-ui.html", "anon");
+	    chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
+	    chainDefinition.addPathDefinition("/webjars/**", "anon");
+		// swagger api文档路径 http://localhost:8082/v2/api-docs
+	    chainDefinition.addPathDefinition("/v2/**", "anon");
 	    // 登出 用logout
 	    chainDefinition.addPathDefinition("/doLogout", "logout");
-	    // 跳转到登录页 用user
+	    // 除上面以外的所有路径，跳转到登录页 用user
 	    chainDefinition.addPathDefinition("/**", "user");
+//	    chainDefinition.addPathDefinition("/doLoginUI", "user");
 	    return chainDefinition;
 	}
 	@Bean

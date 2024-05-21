@@ -8,6 +8,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -29,17 +30,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2 {
 
-	
-	
+
+    /**
+     * 一般正式环境会关闭swagger功能
+     */
     @Value("${swagger.enable}")
     private Boolean enable;
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Api接口")
-                .description("Api接口的描述")
-                .termsOfServiceUrl("http://www.baidu.com/")
-                .version("1.0")
+                .title("你的应用标题") // 设置文档的标题
+                .description("你的应用描述，可以详细描述API的作用和使用方法。") // 设置文档的描述
+                .version("1.0.0") // 设置文档的版本信息
+                .contact(new Contact("你的名字", "你的网站链接", "你的邮箱")) // 设置联系人信息
+                .license("你的许可证") // 设置许可证
+                .licenseUrl("许可证的URL") // 设置许可证的URL
+                .termsOfServiceUrl("服务条款的URL") // 设置服务条款的URL
                 .build();
     }
 
@@ -47,10 +53,11 @@ public class Swagger2 {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .select()
+                .select() // 选择需要生成文档的API
                 .apis(RequestHandlerSelectors.basePackage("com.cy.pj.sys.controller"))
                 .paths(PathSelectors.any())
                 .build()
+                .pathMapping("/") // 这里可以设置基础路径，比如"/api"
                 .enable(enable);
     }
 }
