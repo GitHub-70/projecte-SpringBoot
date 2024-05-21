@@ -14,13 +14,13 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authz.AuthorizationException;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.*;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,7 +30,7 @@ import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.pojo.SysUser;
 
-//@Service
+@Service
 public class ShiroUserRealm extends AuthorizingRealm {
 
 	@Autowired
@@ -44,9 +44,8 @@ public class ShiroUserRealm extends AuthorizingRealm {
 	
 	@Autowired
 	private SysMenuDao sysMenuDao;
-	
-	
-	
+
+
 	/**重写获取加密匹配器对象的方法*/
 	@Override
 	public CredentialsMatcher getCredentialsMatcher() {

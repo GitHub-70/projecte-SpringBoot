@@ -32,7 +32,7 @@ import com.cy.pj.common.schedul.MyPrintWritejob;
  */
 
 
-//@Configuration
+@Configuration
 public class QuartzConfig {
 	
 	@Autowired
@@ -77,7 +77,7 @@ public class QuartzConfig {
 				.usingJobData("TriggerKey_1", "这是jobDetail1的trigger")
 				.startNow()// 立即生效
 				.startAt(startDate) // * 30 10 ? * 1/5 2021
-				.withSchedule(CronScheduleBuilder.cronSchedule("0/10 * * * * ?"))// 每10秒执行一次
+				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/2 * * * ?"))// 每两分钟执行一次
 //				.forJob(jobDetail)// 一个触发器 只能绑定到一个jobDetail中
 				.build();
 		return cronTrigger;
@@ -113,7 +113,7 @@ public class QuartzConfig {
 				.usingJobData("TriggerKey_2", "这是jobDetail1的trigger")
 				.startNow()// 立即生效
 				.startAt(startDate) // * 30 10 ? * 1/5 2021
-				.withSchedule(CronScheduleBuilder.cronSchedule("0/40 * * * * ?"))// 每40秒执行一次
+				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))// 每五分钟执行一次
 //				.forJob(jobDetail)// 一个触发器 只能绑定到一个jobDetail中
 				.build();
 		return cronTrigger;

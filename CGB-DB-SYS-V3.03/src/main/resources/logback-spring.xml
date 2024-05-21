@@ -117,23 +117,26 @@
     例如，如果将控制台appender添加到根记录器，则所有启用的日志记录请求将至少在控制台上打印。
     如果另外将文件追加器添加到记录器（例如L），则对L和L'子项启用的记录请求将打印在文件和控制台上。
     通过将记录器的additivity标志设置为false，可以覆盖此默认行为，以便不再添加appender累积-->
-    <!-- configuration中最多允许一个root，别的logger如果没有设置级别则从父级别root继承 -->
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
+
+    <!-- configuration中最多允许一个root，级别的logger如果没有设置级别则从父级别root继承 -->
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="STDOUT" />-->
+<!--    </root>-->
 
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.sailing.springbootmybatis" level="INFO">
+    <logger name="com.cy.pj" level="INFO">
         <appender-ref ref="info_log" />
         <appender-ref ref="error_log" />
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <!-- 利用logback输入mybatis的sql日志，
     注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及祖先的logger中，就会出现日志文件中sql重复打印-->
-    <logger name="com.sailing.springbootmybatis.mapper" level="DEBUG" additivity="false">
+    <logger name="com.cy.pj.sys.dao" level="DEBUG" additivity="false">
         <appender-ref ref="info_log" />
         <appender-ref ref="error_log" />
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <!-- additivity=false代表禁止默认累计的行为，即com.atomikos中的日志只会记录到日志文件中，不会输出层次级别更高的任何appender-->
