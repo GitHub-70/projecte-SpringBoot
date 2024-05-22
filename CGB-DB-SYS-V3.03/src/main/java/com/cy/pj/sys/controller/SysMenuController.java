@@ -1,8 +1,7 @@
 package com.cy.pj.sys.controller;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.cy.pj.common.pojo.JsonResult;
 import com.cy.pj.sys.pojo.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
@@ -25,7 +24,7 @@ public class SysMenuController {
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
-	@RequestMapping("doUpdateObject")
+	@PostMapping("doUpdateObject")
 	public JsonResult doUpdateObject(SysMenu entity) {
 		sysMenuService.updateObject(entity);
 		return new JsonResult("update ok");
@@ -39,18 +38,18 @@ public class SysMenuController {
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")
 	})
-	@RequestMapping("doSaveObject")
+	@PostMapping("doSaveObject")
 	public JsonResult doSaveObject(SysMenu entity) {
 		sysMenuService.saveObject(entity);
 		return new JsonResult("save ok");
 	}
 
-	@ApiOperation(value = "查询菜单信息",notes= "方法的备注说明")
+	@ApiOperation(value = "查询菜单信息",notes= "查询所有的菜单信息")
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindZtreeMenuNodes")
+	@GetMapping("doFindZtreeMenuNodes")
 	public JsonResult doFindZtreeMenuNodes() {
 		return new JsonResult(sysMenuService.findZtreeMenuNodes());
 	}
@@ -63,18 +62,18 @@ public class SysMenuController {
 			@ApiResponse(code = 1, message = "删除成功"),
 			@ApiResponse(code = 0, message = "删除失败")
 	})
-	@RequestMapping("doDeleteObject")
+	@PostMapping("doDeleteObject")
 	public JsonResult doDeleteObject(Integer id) {
 		sysMenuService.deleteObject(id);
 		return new JsonResult("delete ok");
 	}
 
-	@ApiOperation(value = "查询菜单信息",notes= "方法的备注说明")
+	@ApiOperation(value = "查询菜单信息",notes= "查询菜单当前节点及父节点信息")
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindObjects")
+	@GetMapping("doFindObjects")
 	//@ResponseBody
 	public JsonResult doFindObjects() {
 		return new JsonResult(sysMenuService.findObjects());

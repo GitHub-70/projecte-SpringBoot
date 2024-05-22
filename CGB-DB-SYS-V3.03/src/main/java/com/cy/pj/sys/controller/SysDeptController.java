@@ -2,9 +2,7 @@ package com.cy.pj.sys.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cy.pj.common.pojo.JsonResult;
 import com.cy.pj.sys.pojo.SysDept;
@@ -17,22 +15,22 @@ public class SysDeptController {
 	@Autowired
 	private SysDeptService sysDeptService;
 
-	@ApiOperation(value = "查询部门信息",notes= "方法的备注说明")
+	@ApiOperation(value = "查询部门信息",notes= "查询当前部门及上级部门信息")
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindObjects")
+	@GetMapping("doFindObjects")
 	public JsonResult doFindObjects() {
 		return new JsonResult(sysDeptService.findObjects());
 	}
 
-	@ApiOperation(value = "查询部门信息",notes= "方法的备注说明")
+	@ApiOperation(value = "查询部门信息",notes= "查询所有的部门信息")
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindZTreeNodes")
+	@GetMapping("doFindZTreeNodes")
 	public JsonResult doFindZTreeNodes() {
 		return new JsonResult(sysDeptService.findZTreeNodes());
 	}
@@ -45,7 +43,7 @@ public class SysDeptController {
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
-	@RequestMapping("doUpdateObject")
+	@PostMapping("doUpdateObject")
 	public JsonResult doUpdateObject(SysDept entity){
 		sysDeptService.updateObject(entity);
 	    return new JsonResult("update ok");
@@ -59,7 +57,7 @@ public class SysDeptController {
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")
 	})
-	@RequestMapping("doSaveObject")
+	@PostMapping("doSaveObject")
 	public JsonResult doSaveObject(SysDept entity){
 		sysDeptService.saveObject(entity);
 		return new JsonResult("save ok");
@@ -73,7 +71,7 @@ public class SysDeptController {
 			@ApiResponse(code = 1, message = "删除成功"),
 			@ApiResponse(code = 0, message = "删除失败")
 	})
-	@RequestMapping("doDeleteObject")
+	@PostMapping("doDeleteObject")
 	@ResponseBody
 	public JsonResult doDeleteObject(Integer id){
 		sysDeptService.deleteObject(id);

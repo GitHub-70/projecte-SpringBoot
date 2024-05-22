@@ -2,8 +2,7 @@ package com.cy.pj.sys.controller;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.cy.pj.sys.service.SysLogService;
 import com.cy.pj.sys.pojo.SysLog;
 import com.cy.pj.common.pojo.JsonResult;
@@ -25,7 +24,7 @@ public class SysLogController {
 			@ApiResponse(code = 1, message = "删除成功"),
 			@ApiResponse(code = 0, message = "删除失败")
 	})
-	@RequestMapping("doDeleteObjects")
+	@PostMapping("doDeleteObjects")
 	@ResponseBody
 	public JsonResult doDeleteObjects(Integer... ids){
 		sysLogService.deleteObjects(ids);
@@ -41,7 +40,7 @@ public class SysLogController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindPageObjects")
+	@GetMapping("doFindPageObjects")
 	@ResponseBody
 	public JsonResult doFindPageObjects(String username,Long pageCurrent) {
 //		try {

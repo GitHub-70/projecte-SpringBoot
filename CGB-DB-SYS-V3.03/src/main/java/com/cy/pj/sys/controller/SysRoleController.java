@@ -2,6 +2,8 @@ package com.cy.pj.sys.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +24,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindRoles")
+	@PostMapping("doFindRoles")
 	public JsonResult doFindRoles() {
 		return new JsonResult(sysRoleService.findRoles());
 	}
@@ -35,7 +37,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindObjectById")
+	@GetMapping("doFindObjectById")
 	public JsonResult doFindObjectById(Integer id) {
 		return new JsonResult(sysRoleService.findObjectById(id));
 	}
@@ -49,7 +51,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
-	@RequestMapping("doUpdateObject")
+	@PostMapping("doUpdateObject")
 	public JsonResult doUpdateObject(SysRole entity,Integer[]menuIds) {
 		sysRoleService.updateObject(entity, menuIds);
 		return new JsonResult("update ok");
@@ -64,7 +66,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")
 	})
-	@RequestMapping("doSaveObject")
+	@PostMapping("doSaveObject")
 	public JsonResult doSaveObject(SysRole entity,Integer[]menuIds) {
 		sysRoleService.saveObject(entity, menuIds);
 		return new JsonResult("save ok");
@@ -79,7 +81,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindPageObjects")
+	@GetMapping("doFindPageObjects")
 	public JsonResult doFindPageObjects(String name,Long pageCurrent) {
 		return new JsonResult(sysRoleService.findPageObjects(name, pageCurrent));
 	}

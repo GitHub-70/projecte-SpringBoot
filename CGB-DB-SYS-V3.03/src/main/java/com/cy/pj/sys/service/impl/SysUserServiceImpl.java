@@ -230,7 +230,7 @@ public class SysUserServiceImpl implements SysUserService {
 		AssertUtils.isServiceValid(rows==0, "记录可能已经不存在了");
 		//3.保存用户与角色关系数据
 		sysUserRoleDao.deleteObjectsByUserId(entity.getId());
-		System.out.println(1/0);// 模拟出错
+//		System.out.println(1/0);// 模拟出错
 		sysUserRoleDao.insertObjects(entity.getId(), roleIds);
 		return rows;
 	}

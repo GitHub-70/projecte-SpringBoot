@@ -6,6 +6,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +40,7 @@ public class SysUserController {
 			@ApiResponse(code = 404, message = "资源不存在"),
 			@ApiResponse(code = 405, message = "请求方法错误")
 	})
-	@RequestMapping("doUpdatePassword")
+	@PostMapping("doUpdatePassword")
 	public JsonResult doUpdatePassword(String pwd,String newPwd,String cfgPwd) {
 		sysUserService.updatePassword(pwd, newPwd, cfgPwd);
 		return new JsonResult("update ok");
@@ -54,7 +56,7 @@ public class SysUserController {
 			@ApiResponse(code = 1, message = "登录成功"),
 			@ApiResponse(code = 0, message = "登录失败")
 	})
-	@RequestMapping("doLogin")
+	@PostMapping("doLogin")
 	public JsonResult doLogin(String username,String password,
 			boolean isRememberMe) {
 		System.out.println("==doLogin===");
@@ -95,7 +97,7 @@ public class SysUserController {
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
-	@RequestMapping("doUpdateObject")
+	@PostMapping("doUpdateObject")
 	public JsonResult doUpdateObject(SysUser entity,Integer[]roleIds) {
 		sysUserService.updateObject(entity, roleIds);
 		return new JsonResult("update ok");
@@ -110,7 +112,7 @@ public class SysUserController {
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")
 	})
-	@RequestMapping("doSaveObject")
+	@PostMapping("doSaveObject")
 	public JsonResult doSaveObject(SysUser entity,Integer[]roleIds) throws Exception {
 		sysUserService.saveObject(entity, roleIds);
 		return new JsonResult("save ok");
@@ -125,7 +127,7 @@ public class SysUserController {
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
-	@RequestMapping("doValidById")
+	@PostMapping("doValidById")
 	public JsonResult doValidById(Integer id,Integer valid){
 		sysUserService.validById(id, valid);
 		return new JsonResult("update ok");
@@ -140,7 +142,7 @@ public class SysUserController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@RequestMapping("doFindPageObjects")
+	@GetMapping("doFindPageObjects")
 	public JsonResult doFindPageObjects(String username,Long pageCurrent) {
 		return new JsonResult(sysUserService.findPageObjects(username, pageCurrent));
 	}
