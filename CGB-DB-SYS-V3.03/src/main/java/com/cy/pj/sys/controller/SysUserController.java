@@ -90,7 +90,6 @@ public class SysUserController {
 
 	@ApiOperation(value = "修改用户信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "用户信息", required = true, dataType = "SysUser"),
 			@ApiImplicitParam(name = "roleIds", value = "角色id数组", required = true, dataType = "Integer[]")
 	})
 	@ApiResponses({
@@ -105,7 +104,6 @@ public class SysUserController {
 
 	@ApiOperation(value = "保存用户信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "用户信息", required = true, dataType = "SysUser"),
 			@ApiImplicitParam(name = "roleIds", value = "角色id数组", required = true, dataType = "Integer[]")
 	})
 	@ApiResponses({

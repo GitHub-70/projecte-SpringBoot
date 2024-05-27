@@ -41,7 +41,6 @@ public class SysRoleController {
 
 	@ApiOperation(value = "修改角色信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "角色信息", required = true, dataType = "SysRole"),
 			@ApiImplicitParam(name = "menuIds", value = "菜单id数组", required = true, dataType = "Integer[]")
 	})
 	@ApiResponses({
@@ -56,7 +55,6 @@ public class SysRoleController {
 
 	@ApiOperation(value = "保存角色信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "角色信息", required = true, dataType = "SysRole"),
 			@ApiImplicitParam(name = "menuIds", value = "菜单id数组", required = true, dataType = "Integer[]")
 	})
 	@ApiResponses({
