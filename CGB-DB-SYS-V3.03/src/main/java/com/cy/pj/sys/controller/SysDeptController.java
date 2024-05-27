@@ -36,9 +36,6 @@ public class SysDeptController {
 	}
 
 	@ApiOperation(value = "修改部门信息",notes= "方法的备注说明")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "部门信息", required = true, dataType = "SysDept")
-	})
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
@@ -50,9 +47,6 @@ public class SysDeptController {
 	}
 
 	@ApiOperation(value = "保存部门信息",notes= "方法的备注说明")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "部门信息", required = true, dataType = "SysDept")
-	})
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")

@@ -6,6 +6,11 @@ import com.cy.pj.common.pojo.JsonResult;
 import com.cy.pj.sys.pojo.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
+/**
+ * 更多控制层请求参数格式
+ * https://blog.csdn.net/Brad_PiTt7/article/details/107969206
+ *
+ */
 //@Controller
 //@ResponseBody
 @Api(tags = "菜单模块")
@@ -17,29 +22,23 @@ public class SysMenuController {
 	private SysMenuService sysMenuService;
 
 	@ApiOperation(value = "修改菜单信息",notes= "方法的备注说明")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "菜单信息", required = true, dataType = "SysMenu")
-	})
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "修改成功"),
 			@ApiResponse(code = 0, message = "修改失败")
 	})
 	@PostMapping("doUpdateObject")
-	public JsonResult doUpdateObject(SysMenu entity) {
+	public JsonResult doUpdateObject(@RequestBody SysMenu entity) {
 		sysMenuService.updateObject(entity);
 		return new JsonResult("update ok");
 	}
 
 	@ApiOperation(value = "保存菜单信息",notes= "方法的备注说明")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "entity", value = "菜单信息", required = true, dataType = "SysMenu")
-	})
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "保存成功"),
 			@ApiResponse(code = 0, message = "保存失败")
 	})
 	@PostMapping("doSaveObject")
-	public JsonResult doSaveObject(SysMenu entity) {
+	public JsonResult doSaveObject(@RequestBody SysMenu entity) {
 		sysMenuService.saveObject(entity);
 		return new JsonResult("save ok");
 	}

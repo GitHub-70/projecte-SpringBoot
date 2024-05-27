@@ -1,5 +1,7 @@
 package com.cy.pj.sys.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,17 +9,29 @@ import java.util.Date;
 
 public class SysUser implements Serializable{
 	private static final long serialVersionUID = 8857453521738996113L;
+	@ApiModelProperty(value = "用户ID")
 	private Integer id;
+	@ApiModelProperty(value = "用户名")
 	private String username;
+	@ApiModelProperty(value = "密码")
 	private String password;
+	@ApiModelProperty(value = "加密盐值")
 	private String salt;//盐值
+	@ApiModelProperty(value = "邮箱")
 	private String email;
+	@ApiModelProperty(value = "电话")
 	private String mobile;
+	@ApiModelProperty(value = "禁用标识")
 	private Integer valid=1;
+	@ApiModelProperty(value = "部门ID")
     private Integer deptId;
+	@ApiModelProperty(value = "创建时间")
 	private Date createdTime;
+	@ApiModelProperty(value = "修改时间")
 	private Date modifiedTime;
+	@ApiModelProperty(value = "创建用户")
 	private String createdUser;
+	@ApiModelProperty(value = "修改用户")
 	private String modifiedUser;
 	public Integer getId() {
 		return id;

@@ -143,14 +143,37 @@
 	   var updateUrl="menu/doUpdateObject";
 	   var url=rowData?updateUrl:insertUrl;
 	   if(rowData)params.id=rowData.id;
-	   $.post(url,params,function(result){
-			  if(result.state==1){
-				  alert(result.message);
-				  doCancel();
-			  }else{
-				  alert(result.message);
-			  }
-	  });
+
+      // 3.发送POST请求，设置contentType为application/json
+      // 3.1将数据转换为JSON字符串
+      var jsonData = JSON.stringify(params);
+      $.ajax({
+          url: url,
+          type: 'POST',
+          contentType: 'application/json',  // 添加这一行
+          data: jsonData,  // 需要将原始数据转换为JSON格式
+          success: function(result) {
+              if (result.state == 1) {
+                  alert(result.message);
+                  doCancel();
+              } else {
+                  alert(result.message);
+              }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.error('Error:', textStatus, ', Details:', errorThrown);
+          }
+      });
+
+      //  // 3.异步提交表单数据(post) 表单默认的请求数据类型 ContentType:application/x-www-form-urlencoded
+	  //  $.post(url,params,function(result){
+		// 	  if(result.state==1){
+		// 		  alert(result.message);
+		// 		  doCancel();
+		// 	  }else{
+		// 		  alert(result.message);
+		// 	  }
+	  // });
   }
   //编辑页面cancel事件处理
   function doCancel(){

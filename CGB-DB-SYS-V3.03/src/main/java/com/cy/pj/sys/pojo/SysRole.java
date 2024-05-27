@@ -1,4 +1,6 @@
 package com.cy.pj.sys.pojo;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -7,12 +9,19 @@ import java.util.Date;
  */
 public class SysRole implements Serializable{
 	private static final long serialVersionUID = -8557710039441592130L;
+	@ApiModelProperty(value = "角色ID")
 	 private Integer id;
+	@ApiModelProperty(value = "角色名称")
 	 private String name;
+	@ApiModelProperty(value = "备注")
 	 private String note;
+	@ApiModelProperty(value = "创建时间")
 	 private Date createdTime;
+	@ApiModelProperty(value = "修改时间")
 	 private Date modifiedTime;
+	@ApiModelProperty(value = "创建用户")
 	 private String createdUser;
+	@ApiModelProperty(value = "修改用户")
 	 private String modifiedUser;
 	public Integer getId() {
 		return id;
