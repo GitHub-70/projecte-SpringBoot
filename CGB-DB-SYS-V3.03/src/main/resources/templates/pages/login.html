@@ -35,7 +35,8 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form method="post">
+    <!-- 监听表单的keyup事件。当用户按下Enter键时，调用doLogin函数 event.key === 13-->
+    <form method="post" onkeyup="return event.key === 'Enter' ? doLogin() : null;">
       <div class="form-group has-feedback">
         <input type="text" id="usernameId" name="username" class="form-control" placeholder="手机号/邮箱/QQ/其他">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -88,6 +89,8 @@
     });
     $(".btn").click(doLogin);
   });
+
+
   function doLogin(){
 	 
 	  var params={
