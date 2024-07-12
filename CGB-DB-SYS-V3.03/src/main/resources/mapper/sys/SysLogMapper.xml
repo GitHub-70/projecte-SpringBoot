@@ -38,5 +38,11 @@
          </where>
          order by createdTime desc
       </select>
+
+    <select id="queryLogByPage" resultType="com.cy.pj.sys.pojo.SysLog">
+         select * from sys_logs
+         order by createdTime desc
+         LIMIT #{pageCurrent},#{pageSize}
+      </select>
       
   </mapper>

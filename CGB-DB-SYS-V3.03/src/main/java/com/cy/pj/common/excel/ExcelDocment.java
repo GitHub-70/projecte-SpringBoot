@@ -1,5 +1,6 @@
 package com.cy.pj.common.excel;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,6 +26,10 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.SheetBuilder;
 
+/**
+ * 导出excel
+ * https://blog.csdn.net/sufu1065/article/details/115301974
+ */
 public class ExcelDocment {
 	// 显示导出表的标题
 	private static String title = "工作簿中一个标签页名字";
@@ -43,6 +48,12 @@ public class ExcelDocment {
 	private static HSSFCell hssfCell = hssfRow.createCell(0); // 第一行中的第一个单元格
 
 	public static void main(String[] args) {
+		rowsName = new String[] { "序号", "姓名", "年龄", "性别", "地址" };
+		String[] data = {"张三", "男", "18", "北京", "北京"};
+		String[] data2 = {"李四", "女", "18", "北京", "北京"};
+		dataList.add(data);
+		dataList.add(data2);
+
 		 // 获取一个工作簿 模板
 		 HSSFWorkbook workTemplet = getWorkTemplet(hssfWorkbook, hssfSheet, hssfRow, hssfCell);
 		
@@ -58,15 +69,9 @@ public class ExcelDocment {
 				if(j == 0) {
 					hssCell = dataRow.createCell(j, CellType.NUMERIC);
 					hssCell.setCellValue(i+1);// 序号从1 开始
-					// 判断第一个数据是否为空，填充数据
-					hssCell = dataRow.createCell(j + 1, CellType.STRING);
-					if (null != dateRows[0] && !"".equals(dateRows[0]) ) {
-						// 填充数据
-						hssCell.setCellValue(dateRows[0].toString());
-					}
 					
 				} else {
-					hssCell = dataRow.createCell(j + 1, CellType.STRING);
+					hssCell = dataRow.createCell(j, CellType.STRING);
 					if (null != dateRows[j] && !"".equals(dateRows[j]) ) {
 						// 填充数据
 						hssCell.setCellValue(dateRows[j].toString());
@@ -76,6 +81,14 @@ public class ExcelDocment {
 				hssCell.setCellStyle(getDataStyle(workTemplet));
 			}
 		}
+
+		 try(FileOutputStream fileOutputStream = new FileOutputStream("D:\\test.xls");){
+			 workTemplet.write(fileOutputStream);
+			 workTemplet.close();
+		 } catch (Exception e){
+			 e.printStackTrace();
+		 }
+		 System.out.println("导出成功");
 	}
 
 	/**
