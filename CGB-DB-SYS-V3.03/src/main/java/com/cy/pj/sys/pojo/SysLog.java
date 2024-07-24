@@ -1,4 +1,6 @@
 package com.cy.pj.sys.pojo;
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -12,18 +14,26 @@ import java.util.Date;
 
 public class SysLog implements Serializable{//ObjectOutputStream/ObjectInputStream
 	private static final long serialVersionUID = -1592163223057343412L;
+
+//	@Excel(name="日志ID")
 	private Integer id;
 	//用户名
+	@Excel(name="用户名",width=20, orderNum="1")
 	private String username;
 	//用户操作
+	@Excel(name="用户操作",width=40, orderNum="2")
 	private String operation;
 	//请求方法
+	@Excel(name="请求方法",width=60, orderNum="3")
 	private String method;
 	//请求参数
+	@Excel(name="请求参数",width=20, orderNum="4")
 	private String params;
 	//执行时长(毫秒)
+	@Excel(name="执行时长(毫秒)",width=20, orderNum="6")
 	private Long time;
 	//IP地址
+	@Excel(name="IP地址",width=20, orderNum="5")
 	private String ip;
 	//创建时间
 	private Date createdTime;

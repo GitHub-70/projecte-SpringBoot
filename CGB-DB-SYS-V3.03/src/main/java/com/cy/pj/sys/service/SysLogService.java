@@ -1,7 +1,9 @@
 package com.cy.pj.sys.service;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.sys.pojo.SysLog;
+import org.apache.poi.ss.usermodel.Workbook;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -30,4 +32,11 @@ public interface SysLogService {
 	 * @throws IOException
 	 */
 	byte[] downloadLogReport(Long pageCurrent) throws IOException;
+
+	/**
+	 * 下载日志报表
+	 * @param userName
+	 * @return Workbook
+	 */
+	void downloadLogReport2(String userName, HttpServletResponse response);
 }

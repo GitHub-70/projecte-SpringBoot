@@ -1,5 +1,8 @@
 package com.cy.pj.sys.service.impl;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.handler.inter.IExcelExportServer;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.common.utils.ExcelDocmentUtil;
@@ -10,6 +13,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -17,9 +21,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,5 +120,46 @@ public class SysLogServiceImpl implements SysLogService {
 		}
 		return bytes;
 	}
+
+	@Override
+	public void downloadLogReport2(String userName, HttpServletResponse response) {
+		try {
+			// 创建导出参数
+			ExportParams params = new ExportParams("操作日志", "日志列表");
+			// 方式一：导出少量数据
+			int pageCurrent = 1;
+			int pageSize = 5;
+			Page<SysLog> page1=PageHelper.startPage(pageCurrent, pageSize);
+			List<SysLog> pageObjects = sysLogDao.findPageObjects(userName);
+			Workbook workbook = ExcelExportUtil.exportExcel(params, SysLog.class, pageObjects);
+
+			// 方式二：导出大量数据 queryParams 为查询参数，page 为当前页码
+//			IExcelExportServer server = (queryParams, page) -> {
+//				Page<SysLog> page1=PageHelper.startPage(page, 100000);
+//				List<SysLog> pageObjects = sysLogDao.findPageObjects((String) queryParams);
+//				if (page > page1.getPages()){
+//					return null;
+//				}
+//				return new ArrayList<>(pageObjects);
+//			};
+//			Workbook workbook = ExcelExportUtil.exportBigExcel(params, SysLog.class, server, userName);
+
+			String encodedFileName = Base64.getEncoder().encodeToString("report.xlsx".getBytes(StandardCharsets.UTF_8));
+			response.setHeader("Content-Disposition", "attachment;filename*=UTF-8''" + encodedFileName);
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+			// 将流设置到 response
+			workbook.write(response.getOutputStream());
+			// 单纯的在后台生成文件
+//			FileOutputStream fileOutputStream = new FileOutputStream("D:\\aaa.xlsx");
+//			workbook.write(fileOutputStream);
+
+			// 注意：关闭工作簿前 将流设置到 response
+			workbook.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

@@ -220,6 +220,7 @@
         $('.btn-download-report').on('click', function () {
             let pageCurrent = $("#pageId").data("pageCurrent");
             if (!pageCurrent) pageCurrent = 1;
+            var username = $("#searchNameId").val();//val()用于获取表单value属性值.
 
             // 提示用户输入文件名
             let fileName = prompt('请输入文件名（不含扩展名）', 'report');
@@ -227,7 +228,7 @@
                 return;
             }
 
-            var url = '/log/download/report?pageCurrent=' + pageCurrent;
+            var url = '/log/download/report2?userName='+username+'&pageCurrent=' + pageCurrent;
             fetch(url, {
                 method: 'GET',
                 // 如果需要，可以在这里添加其他参数
@@ -245,7 +246,8 @@
                 a.style.display = 'none';
                 a.href = url;
                 // 使用用户提供的文件名
-                a.download = `${fileName}.xls`;
+                // a.download = `${fileName}.xls`;
+                a.download = `${fileName}.xlsx`;
                 document.body.appendChild(a);
                 a.click();
                 // 释放URL对象
