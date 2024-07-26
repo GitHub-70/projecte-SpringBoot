@@ -6,6 +6,7 @@ import cn.afterturn.easypoi.handler.inter.IExcelExportServer;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.common.utils.ExcelDocmentUtil;
+import com.cy.pj.common.utils.ExcelDownloadUtil;
 import com.cy.pj.sys.dao.SysLogDao;
 import com.cy.pj.sys.pojo.SysLog;
 import com.cy.pj.sys.service.SysLogService;
@@ -159,6 +160,29 @@ public class SysLogServiceImpl implements SysLogService {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void downloadLogReport3(String userName, HttpServletResponse response) {
+		List<SysLog> pageObjects = sysLogDao.findPageObjects(userName);
+		String[] rowsName = new String[]{"用户名","操作","请求方法","请求参数","IP","执行时长"};
+		List<Object[]> dataRows = Lists.transform(pageObjects, sysLog -> {
+			return new Object[]{
+					// 属性为null时，使用Optional.ofNullable()方法给默认值
+					Optional.ofNullable(sysLog.getUsername()).orElse(""),
+					Optional.ofNullable(sysLog.getOperation()).orElse(""),
+					Optional.ofNullable(sysLog.getMethod()).orElse(""),
+					Optional.ofNullable(sysLog.getParams()).orElse(""),
+					Optional.ofNullable(sysLog.getIp()).orElse(""),
+					Optional.ofNullable(sysLog.getTime()).orElse(0L)
+			};
+		});
+		try {
+//			ExcelDownloadUtil.downloadExcel(response, dataRows, rowsName, "日志列表");
+			ExcelDownloadUtil.downloadExcel2(response, dataRows, rowsName, "日志列表");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 

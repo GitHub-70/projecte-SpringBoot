@@ -39,4 +39,10 @@ public interface SysLogService {
 	 * @return Workbook
 	 */
 	void downloadLogReport2(String userName, HttpServletResponse response);
+	/**
+	 * 下载日志报表
+	 * @param userName
+	 * @return Workbook
+	 */
+	void downloadLogReport3(String userName, HttpServletResponse response);
 }

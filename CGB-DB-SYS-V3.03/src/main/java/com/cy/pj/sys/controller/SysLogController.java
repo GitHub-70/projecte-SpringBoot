@@ -1,4 +1,5 @@
 package com.cy.pj.sys.controller;
+import com.cy.pj.common.utils.ExcelDownloadUtil;
 import io.swagger.annotations.*;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +125,8 @@ public class SysLogController {
 	@GetMapping("/download/report2")
 	public void downloadLogReport2(@RequestParam String userName, HttpServletResponse response) throws IOException {
 
-		sysLogService.downloadLogReport2(userName, response);
+//		sysLogService.downloadLogReport2(userName, response);
+		sysLogService.downloadLogReport3(userName, response);
 
 	}
 }
