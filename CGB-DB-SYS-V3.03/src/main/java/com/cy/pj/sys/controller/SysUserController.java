@@ -77,7 +77,7 @@ public class SysUserController {
 
 	@ApiOperation(value = "根据id查询用户信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer")
+			@ApiImplicitParam(name = "id", value = "用户id", required = true)
 	})
 	@ApiResponses({
 			@ApiResponse(code = 1, message = "查询成功"),

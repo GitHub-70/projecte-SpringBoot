@@ -78,7 +78,7 @@ jasypt:
     # 若防止暴露加密的秘钥，不配置该秘钥，在项目启动时加入参数：-Djasypt.encryptor.password=123456
     # 因为在配置文件中缺少了jasypt.encryptor.password，因此使用Maven打包时会出错
     # 在Maven打包配置中加上参数即可：-Djasypt.encryptor.password=123456
-#    password: 123456
+    password: 123456
     # 加密算法
     algorithm: PBEWithMD5AndDES
     # 用来使用新的算法，默认为org.jasypt.salt.NoOPIVGenerator,这样的话我们就无法使用命令行中生成的密文

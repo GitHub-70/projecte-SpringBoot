@@ -23,40 +23,55 @@ public class SysTimeAspect2 {
 	 * 		“add(*,String)”则表示带两个参数，且第二个参数是String类型的add方法；
 	 * 	throws-pattern表示异常类型；其中以问号结束的部分都是可以省略的。
 	 */
-	@Pointcut("this(com.cy.pj.sys.service.impl.SysUserServiceImpl)")
+//	@Pointcut("this(com.cy.pj.sys.service.impl.SysUserServiceImpl)")
+	@Pointcut("bean(portController)")
 	public void doTime() {}
-	
-	/**before通知在目标方法执行之前执行*/
+
+	/**
+	 * before通知在目标方法执行之前执行
+	 * @param jp
+	 */
 	@Before("doTime()")
 	public void doBefore(JoinPoint jp) {
-		System.out.println("@Before-2");
+		System.out.println("@Before-2.....");
 	}
-	/**after通知在目标方法结束之前(return或throw之前)执行*/
+
+	/**
+	 * after 通知在目标方法结束之前(return或throw之前)执行
+	 */
 	@After("doTime()")
 	public void doAfter() {
-		System.out.println("@After-2");
+		System.out.println("@After-2.....");
 	}
-	/**after之后程序没有出现异常则执行此通知*/
+
+	/**
+	 * AfterReturning 之后程序没有出现异常则执行此通知
+	 */
 	@AfterReturning("doTime()")
 	public void doAfterTurning() {
-		System.out.println("@AfterReturning-2");
+		System.out.println("@AfterReturning-2.....");
 	}
-	/**after之后程序出现异常则执行此通知*/
+
+	/**
+	 * AfterThrowing 之后程序出现异常则执行此通知
+	 */
 	@AfterThrowing("doTime()")
 	public void AfterThrowing() {
-		System.out.println("@AfterThrowing-2");
+		System.out.println("@AfterThrowing-2.....");
 	}
 	//ProceedingJoinPoint这个类型只能作为环绕通知的方法参数
 	@Around("doTime()")
 	public Object doAround(ProceedingJoinPoint jp) throws Throwable{
-		System.out.println("@Around.Before-2");
+		System.out.println("@Around.Around-2开始.....");
 		try {
 		Object result=jp.proceed();
-		System.out.println("@Around.after-2");
+		System.out.println("@Around.Around-2目标方法之后，Around-2返回之前.....目标方法返回值:"+result);
 		return result;
 		}catch(Throwable e) {
-		System.out.println("@Around.error-2");
+		System.out.println("@Around.Around-2 异常catch.....");
 		throw e;
+		} finally {
+			System.out.println("@Around.Around-2 finally.....");
 		}
 	}
 }

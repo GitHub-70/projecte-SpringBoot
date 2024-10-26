@@ -54,6 +54,10 @@ public class Swagger2 {
                 .build();
     }
 
+    /**
+     * swagger 统一安全认证配置
+     * @return
+     */
     @Bean
     public Docket createRestApi() {
         Set<String> hashSet = new HashSet<>();

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
+    <!-- spring boot提供了logback的默认配置 -->
+   <!-- <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />-->
     <!--用来定义日志文件-->
     <springProperty scope="context" name="currentEnv" source="spring.profiles.active" />
     <springProperty scope="context" name="applicationName" source="spring.application.name" />

@@ -116,7 +116,7 @@ public class SysLogController {
 
 	@ApiOperation(value = "导出日志信息",notes= "方法的备注说明")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "pageCurrent", value = "当前页", required = true, dataType = "Long")
+			@ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
 	})
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "导出成功"),

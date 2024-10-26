@@ -81,6 +81,8 @@ public class SpringShiroConfig {
 	    chainDefinition.addPathDefinition("/v2/**", "anon");
 	    // 登出 用logout
 	    chainDefinition.addPathDefinition("/doLogout", "logout");
+		// 个性化放行
+		chainDefinition.addPathDefinition("/port/test/**", "anon");
 	    // 除上面以外的所有路径，跳转到登录页 用user
 	    chainDefinition.addPathDefinition("/**", "user");
 //	    chainDefinition.addPathDefinition("/doLoginUI", "user");
