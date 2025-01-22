@@ -4,8 +4,8 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.cy.pj.common.pojo.JsonResult;
-import com.cy.pj.sys.pojo.SysRole;
+import com.cy.pj.common.vo.JsonResult;
+import com.cy.pj.sys.po.SysRole;
 import com.cy.pj.sys.service.SysRoleService;
 
 @Api(tags = "角色模块")
@@ -21,7 +21,7 @@ public class SysRoleController {
 			@ApiResponse(code = 1, message = "查询成功"),
 			@ApiResponse(code = 0, message = "查询失败")
 	})
-	@PostMapping("doFindRoles")
+	@GetMapping("doFindRoles")
 	public JsonResult doFindRoles() {
 		return new JsonResult(sysRoleService.findRoles());
 	}

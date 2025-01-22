@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -13,7 +12,7 @@ import com.cy.pj.common.annotation.RequiredCache;
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.Node;
 import com.cy.pj.sys.dao.SysDeptDao;
-import com.cy.pj.sys.pojo.SysDept;
+import com.cy.pj.sys.po.SysDept;
 import com.cy.pj.sys.service.SysDeptService;
 
 @Service

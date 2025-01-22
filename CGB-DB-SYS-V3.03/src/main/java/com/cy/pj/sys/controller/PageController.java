@@ -2,7 +2,6 @@ package com.cy.pj.sys.controller;
 
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cy.pj.common.utils.ShiroUtils;
-import com.cy.pj.sys.pojo.SysUser;
-import com.cy.pj.sys.pojo.SysUserMenu;
+import com.cy.pj.sys.po.SysUser;
+import com.cy.pj.sys.po.SysUserMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 /**

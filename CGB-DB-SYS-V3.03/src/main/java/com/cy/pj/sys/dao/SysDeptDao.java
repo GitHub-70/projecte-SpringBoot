@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.cy.pj.common.pojo.Node;
-import com.cy.pj.sys.pojo.SysDept;
+import com.cy.pj.sys.po.SysDept;
 
 
 @Mapper

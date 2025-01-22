@@ -22,8 +22,8 @@ import com.cy.pj.common.utils.AssertUtils;
 import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
-import com.cy.pj.sys.pojo.SysUser;
-import com.cy.pj.sys.pojo.SysUserDept;
+import com.cy.pj.sys.po.SysUser;
+import com.cy.pj.sys.po.SysUserDept;
 import com.cy.pj.sys.service.SysUserService;
 import com.github.pagehelper.util.StringUtil;
 

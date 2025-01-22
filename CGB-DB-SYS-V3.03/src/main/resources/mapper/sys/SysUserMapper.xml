@@ -5,7 +5,7 @@
   <mapper namespace="com.cy.pj.sys.dao.SysUserDao">
   
      <update id="updateObject"
-           parameterType="com.cy.pj.sys.pojo.SysUser">
+           parameterType="com.cy.pj.sys.po.SysUser">
         update sys_users
         set username=#{username},
             mobile=#{mobile},
@@ -24,8 +24,8 @@
     </select>
 
 	<insert id="insertObject"
-		parameterType="com.cy.pj.sys.pojo.SysUser" useGeneratedKeys="true"
-		keyProperty="id">
+            parameterType="com.cy.pj.sys.po.SysUser" useGeneratedKeys="true"
+            keyProperty="id">
 		insert into sys_users
 		(username,password,deptId,email,mobile,salt,valid,
 		createdTime,modifiedTime,createdUser,modifiedUser)
@@ -44,7 +44,7 @@
          </where>
        </sql>
        
-      <resultMap type="com.cy.pj.sys.pojo.SysUserDept" id="sysUserDept">
+      <resultMap type="com.cy.pj.sys.po.SysUserDept" id="sysUserDept">
          <id property="id" column="id"/>
          <!-- association 一般应用于one2one或many2one这种查询 -->
          <association property="sysDept"

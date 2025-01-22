@@ -1,11 +1,8 @@
 package com.cy.pj.common.aspect;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Date;
 
-import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -13,18 +10,15 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.utils.IPUtils;
 import com.cy.pj.common.utils.ShiroUtils;
-import com.cy.pj.sys.pojo.SysLog;
-import com.cy.pj.sys.pojo.SysUser;
+import com.cy.pj.sys.po.SysLog;
 import com.cy.pj.sys.service.SysLogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
 /**
  * @Aspect 注解描述的类为spring aop中的一个切面类型,此类型可以定义:
  * 1)切入点(PointCut)方法(可以是多个):要进行功能扩展的一些点

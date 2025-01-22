@@ -1,11 +1,10 @@
 package com.cy.pj.sys.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.cy.pj.common.pojo.Node;
-import com.cy.pj.sys.pojo.SysMenu;
-import com.cy.pj.sys.pojo.SysUserMenu;
+import com.cy.pj.sys.po.SysMenu;
+import com.cy.pj.sys.po.SysUserMenu;
 
 public interface SysMenuService {
 	

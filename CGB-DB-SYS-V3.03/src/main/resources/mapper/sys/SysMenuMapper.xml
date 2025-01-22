@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.pj.sys.dao.SysMenuDao">
 
-    <resultMap id="sysUserMenu" type="com.cy.pj.sys.pojo.SysUserMenu">
+    <resultMap id="sysUserMenu" type="com.cy.pj.sys.po.SysUserMenu">
     
        <id property="id" column="id"/>
        <result property="name" column="name"/>
        <result property="url" column="url"/>
        <collection property="childs" 
-                   ofType="com.cy.pj.sys.pojo.SysUserMenu">
+                   ofType="com.cy.pj.sys.po.SysUserMenu">
           <id property="id" column="cid"/>
           <result property="name" column="cname"/>
           <result property="url" column="curl"/>
@@ -89,7 +89,7 @@
 	</insert>
 
 	<!-- 查询所有菜单以及菜单对应的上级菜单名称 useCache="false" 表示该查询方法不使用二级缓存-->
-	<select id="findObjects" resultType="com.cy.pj.sys.pojo.SysMenu" useCache="true">
+	<select id="findObjects" resultType="com.cy.pj.sys.po.SysMenu" useCache="true">
 		<!-- 方案1:嵌套查询 -->
 		<!-- select c.*,(select p.name from sys_menus p where c.parentId=p.id) 
 			parentName from sys_menus c -->

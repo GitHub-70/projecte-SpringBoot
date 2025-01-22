@@ -1,26 +1,20 @@
 package com.cy.pj.sys.controller;
-import com.cy.pj.common.utils.ExcelDownloadUtil;
 import io.swagger.annotations.*;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.cy.pj.sys.service.SysLogService;
-import com.cy.pj.sys.pojo.SysLog;
-import com.cy.pj.common.pojo.JsonResult;
+import com.cy.pj.sys.po.SysLog;
+import com.cy.pj.common.vo.JsonResult;
 import com.cy.pj.common.pojo.PageObject;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 @Api(tags = "日志模块")
 @Controller

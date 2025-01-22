@@ -9,12 +9,10 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cy.pj.common.pojo.JsonResult;
+import com.cy.pj.common.vo.JsonResult;
 /**
  *	 由此注解描述的类为一个控制层全局异常处理类,在此类中可以定义异常处理方法
  *,基于这些异常处理方法对异常进行处理.

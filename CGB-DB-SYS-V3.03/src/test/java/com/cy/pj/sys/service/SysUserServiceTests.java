@@ -15,14 +15,13 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.utils.AssertUtils;
 import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
-import com.cy.pj.sys.pojo.SysUser;
+import com.cy.pj.sys.po.SysUser;
 import com.cy.pj.sys.service.impl.SysUserServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 

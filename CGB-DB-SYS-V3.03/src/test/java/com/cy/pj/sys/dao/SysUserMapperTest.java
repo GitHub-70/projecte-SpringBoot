@@ -1,11 +1,10 @@
 package com.cy.pj.sys.dao;
 
-import com.cy.pj.sys.pojo.SysUser;
+import com.cy.pj.sys.po.SysUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 

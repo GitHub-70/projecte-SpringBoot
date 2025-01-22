@@ -5,7 +5,7 @@
   <mapper namespace="com.cy.pj.sys.dao.SysUserDaoTest">
   
      <update id="updateObject"
-           parameterType="com.cy.pj.sys.pojo.SysUser">
+           parameterType="com.cy.pj.sys.po.SysUser">
         update sys_users_test
         set username=#{username},
             mobile=#{mobile},
@@ -19,8 +19,8 @@
 
 
 	<insert id="insertObject"
-		parameterType="com.cy.pj.sys.pojo.SysUser" useGeneratedKeys="true"
-		keyProperty="id">
+            parameterType="com.cy.pj.sys.po.SysUser" useGeneratedKeys="true"
+            keyProperty="id">
 		insert into sys_users_test
 		(username,password,deptId,email,mobile,salt,valid,
 		createdTime,modifiedTime,createdUser,modifiedUser)
@@ -46,7 +46,7 @@
             10万次，查询需要的值
      -->
     <!-- SELECT * FROM sys_users_test ORDER BY id ASC limit #{startIndex},#{pageSize} -->
-      <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysUser">
+      <select id="findPageObjects" resultType="com.cy.pj.sys.po.SysUser">
         SELECT * FROM sys_users_test a
         INNER JOIN(SELECT id FROM sys_users_test ORDER BY id ASC limit #{startIndex},#{pageSize}) b
         ON a.id = b.id

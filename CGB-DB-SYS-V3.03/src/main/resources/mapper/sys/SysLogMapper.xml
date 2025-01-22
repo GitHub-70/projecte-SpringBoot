@@ -28,7 +28,7 @@
           </where>
      </delete>
        
-      <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysLog">
+      <select id="findPageObjects" resultType="com.cy.pj.sys.po.SysLog">
          select *
          from sys_logs
          <where>
@@ -39,7 +39,7 @@
          order by createdTime desc
       </select>
 
-    <select id="queryLogByPage" resultType="com.cy.pj.sys.pojo.SysLog">
+    <select id="queryLogByPage" resultType="com.cy.pj.sys.po.SysLog">
          select * from sys_logs
          order by createdTime desc
          LIMIT #{pageCurrent},#{pageSize}

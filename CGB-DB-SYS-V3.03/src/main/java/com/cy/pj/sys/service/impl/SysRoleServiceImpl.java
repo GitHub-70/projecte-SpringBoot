@@ -1,18 +1,19 @@
 package com.cy.pj.sys.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.pojo.CheckBox;
+import com.cy.pj.common.dto.CheckBox;
 import com.cy.pj.common.pojo.PageObject;
 import com.cy.pj.sys.dao.SysRoleDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
-import com.cy.pj.sys.pojo.SysRole;
-import com.cy.pj.sys.pojo.SysRoleMenu;
+import com.cy.pj.sys.po.SysRole;
+import com.cy.pj.sys.po.SysRoleMenu;
 import com.cy.pj.sys.service.SysRoleService;
 
 @Service
@@ -25,8 +26,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 	
 	@Override
 	public List<CheckBox> findRoles() {
-		// TODO Auto-generated method stub
-		return sysRoleDao.findRoles();
+		List<SysRole> roles = sysRoleDao.findRoles();
+		// PO转DTO
+		List<CheckBox> checkBoxList = roles.stream().map(p -> {
+			return new CheckBox(p.getId(), p.getName());
+		}).collect(Collectors.toList());
+		return checkBoxList;
 	}
 	
 	@Override

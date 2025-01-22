@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cy.pj.sys.pojo.SysMenu;
+import com.cy.pj.sys.po.SysMenu;
 
 import java.util.*;
 @SpringBootTest

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cy.pj.common.pojo.PageObject;
-import com.cy.pj.sys.pojo.SysLog;
+import com.cy.pj.sys.po.SysLog;
 
 @SpringBootTest
 public class SysLogServiceTests {

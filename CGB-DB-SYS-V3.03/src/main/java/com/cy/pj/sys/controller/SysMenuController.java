@@ -2,8 +2,8 @@ package com.cy.pj.sys.controller;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.cy.pj.common.pojo.JsonResult;
-import com.cy.pj.sys.pojo.SysMenu;
+import com.cy.pj.common.vo.JsonResult;
+import com.cy.pj.sys.po.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 /**

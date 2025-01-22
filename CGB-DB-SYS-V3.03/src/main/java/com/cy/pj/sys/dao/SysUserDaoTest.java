@@ -1,7 +1,6 @@
 package com.cy.pj.sys.dao;
 
-import com.cy.pj.sys.pojo.SysUser;
-import com.cy.pj.sys.pojo.SysUserDept;
+import com.cy.pj.sys.po.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cy.pj.common.pojo.Node;
-import com.cy.pj.sys.pojo.SysDept;
+import com.cy.pj.sys.po.SysDept;
 
 
 public interface SysDeptService {

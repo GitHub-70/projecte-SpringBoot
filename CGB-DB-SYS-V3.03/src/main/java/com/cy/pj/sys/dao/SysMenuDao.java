@@ -4,8 +4,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import com.cy.pj.common.pojo.Node;
-import com.cy.pj.sys.pojo.SysMenu;
-import com.cy.pj.sys.pojo.SysUserMenu;
+import com.cy.pj.sys.po.SysMenu;
+import com.cy.pj.sys.po.SysUserMenu;
 
 import java.util.*;
 @Mapper

@@ -1,13 +1,13 @@
 package com.cy.pj.sys.dao;
 import java.util.*;
 
+import com.cy.pj.common.dto.CheckBox;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
-import com.cy.pj.common.pojo.CheckBox;
-import com.cy.pj.sys.pojo.*;
+import com.cy.pj.sys.po.*;
 
 @Mapper
 public interface SysRoleDao {//sys_roles
@@ -16,7 +16,7 @@ public interface SysRoleDao {//sys_roles
 	 * @return
 	 */
 	@Select("select id,name from sys_roles")
-	List<CheckBox> findRoles();
+	List<SysRole> findRoles();
 	
 	int updateObject(SysRole entity);
 	/**

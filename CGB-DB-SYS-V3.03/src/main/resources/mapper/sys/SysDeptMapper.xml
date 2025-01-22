@@ -5,14 +5,14 @@
 <mapper namespace="com.cy.pj.sys.dao.SysDeptDao">
  <!-- 基于部门id查询部门信息 -->
    <select id="findById"
-           resultType="com.cy.pj.sys.pojo.SysDept">
+           resultType="com.cy.pj.sys.po.SysDept">
           select *
           from sys_depts
           where id=#{id}        
    </select>
    
    <update id="updateObject" 
-       parameterType="com.cy.pj.sys.pojo.SysDept">
+       parameterType="com.cy.pj.sys.po.SysDept">
          update sys_depts
          set
            name=#{name},
@@ -25,7 +25,7 @@
     </update>
     
     <insert id="insertObject" 
-            parameterType="com.cy.pj.sys.pojo.SysDept">
+            parameterType="com.cy.pj.sys.po.SysDept">
          insert into sys_depts
          (name,sort,note,parentId,createdTime,modifiedTime,createdUser,modifiedUser)
          values

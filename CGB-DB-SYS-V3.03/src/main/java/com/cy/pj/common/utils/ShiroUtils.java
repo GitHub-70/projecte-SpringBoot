@@ -2,7 +2,7 @@ package com.cy.pj.common.utils;
 
 import org.apache.shiro.SecurityUtils;
 
-import com.cy.pj.sys.pojo.SysUser;
+import com.cy.pj.sys.po.SysUser;
 
 public class ShiroUtils {
 

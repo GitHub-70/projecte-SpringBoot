@@ -161,14 +161,16 @@
 	    deptId:$("#deptId").data("deptId")
 	 }
 	 //获取选择的角色
-	 var roleIds=new Array();
+	 // var roleIds=new Array();
+    var roleIds = [];
 	 $("#rolesId input[name='roleId']")
 	 .each(function(){
 		 if($(this).prop("checked")){
 			roleIds.push($(this).val());
 		 }
 	 });
-	 params.roleIds=roleIds.toString();
+	 // params.roleIds=roleIds.toString();
+    params.roleIds = roleIds.join(",");
 	 return params;
  }
  function doLoadRoles(){
@@ -178,9 +180,11 @@
 		  doInitPageRoles(result.data);
 		  doInitFormData();//修改时
 		 }else{
-		  alert(result.message);
+		  alert("加载角色数据失败: " + result.message);
 		 }
-	 })
+	 }).fail(function(){
+       alert("加载角色数据时发生网络错误");
+     });
  }
  function doInitFormData(){
      var data=$("#mainContentId").data("rowData");

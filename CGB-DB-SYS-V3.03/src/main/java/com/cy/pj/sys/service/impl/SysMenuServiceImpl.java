@@ -1,24 +1,18 @@
 package com.cy.pj.sys.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.cy.pj.common.exception.ServiceException;
 import com.cy.pj.common.pojo.Node;
-import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.dao.SysMenuDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
-import com.cy.pj.sys.pojo.SysMenu;
-import com.cy.pj.sys.pojo.SysUser;
-import com.cy.pj.sys.pojo.SysUserMenu;
+import com.cy.pj.sys.po.SysMenu;
+import com.cy.pj.sys.po.SysUserMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 @Service

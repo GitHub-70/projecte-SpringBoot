@@ -19,7 +19,7 @@
       2)表嵌套查询映射
       3)表关联查询映射(join)
        -->
-      <resultMap type="com.cy.pj.sys.pojo.SysRoleMenu" id="sysRoleMenu">
+      <resultMap type="com.cy.pj.sys.po.SysRoleMenu" id="sysRoleMenu">
          <id  property="id" column="id" /><!-- 主键映射用id -->
          <result property="name" column="name"/>
          <result property="note" column="note"/>
@@ -45,7 +45,7 @@
          </where>
        </sql>
       <!-- resultType用于实现mybatis查询中简单查询结果的映射 -->
-      <select id="findPageObjects" resultType="com.cy.pj.sys.pojo.SysRole">
+      <select id="findPageObjects" resultType="com.cy.pj.sys.po.SysRole">
          select *
          <include refid="queryWhereId"/>
          order by createdTime desc
