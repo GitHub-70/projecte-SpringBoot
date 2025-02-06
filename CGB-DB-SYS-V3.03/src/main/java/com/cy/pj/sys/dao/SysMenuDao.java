@@ -3,7 +3,6 @@ package com.cy.pj.sys.dao;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import com.cy.pj.common.pojo.Node;
 import com.cy.pj.sys.po.SysMenu;
 import com.cy.pj.sys.po.SysUserMenu;
 
@@ -27,7 +26,7 @@ public interface SysMenuDao {
 	  * @return
 	  */
 	 @Select("select id,name,parentId from sys_menus")
-	 List<Node> findZtreeMenuNodes();
+	 List<SysMenu> findZtreeMenuNodes();
 	
 	/**
 	 * 	基于id删除当前菜单对象

@@ -1,5 +1,5 @@
 package com.cy.pj.sys.service;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.po.SysLog;
 
 import javax.servlet.http.HttpServletResponse;

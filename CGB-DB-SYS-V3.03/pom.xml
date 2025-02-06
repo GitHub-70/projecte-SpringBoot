@@ -261,6 +261,22 @@
             <version>4.9.3</version>
         </dependency>-->
 
+        <!-- 动态调整采样率（通过 Actuator）集成 可通过 API 动态调整 -->
+        <!-- curl -X POST http://localhost:8082/actuator/loggers/com.cy.pj.sys.dao
+        -H 'Content-Type: application/json'
+        -d '{"configuredLevel": "DEBUG", "samplingRate": 0.1}' -->
+
+        <!-- Prometheus 是一个开源系统监控和警报工具包 -->
+        <!-- Grafana 是一个跨平台的开源分析和监控工具，能够创建、共享仪表板，
+        支持多种数据源，包括 Prometheus。它提供了丰富的可视化选项，使用户可以轻松地理解复杂的性能数据。 -->
+
+        <!--  prometheus 普罗米修斯 数据采集 -->
+        <!-- 验证指标暴露：http://localhost:8082/actuator/prometheus -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

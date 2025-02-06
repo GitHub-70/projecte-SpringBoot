@@ -1,4 +1,4 @@
-package com.cy.pj.common.dto;
+package com.cy.pj.sys.dto;
 
 import java.io.Serializable;
 

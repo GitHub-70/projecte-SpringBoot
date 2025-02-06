@@ -3,7 +3,7 @@ package com.cy.pj.sys.service;
 import java.util.List;
 import java.util.Map;
 
-import com.cy.pj.common.pojo.Node;
+import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.po.SysDept;
 
 

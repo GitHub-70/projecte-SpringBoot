@@ -3,3 +3,27 @@ spring:
     active: local
   application:
     name: CGB-DB-SYS-V3.03
+
+# 关闭全局 DEBUG 日志
+logging:
+  level:
+    root: INFO
+    # 单独开启 MyBatis SQL 日志
+    org:
+      mybatis: DEBUG
+    java:
+      sql:
+        Connection: DEBUG
+        Statement: DEBUG
+
+# 启用 Actuator 日志端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: loggers,prometheus
+  endpoint:
+    loggers:
+      enabled: true
+    prometheus:
+      enabled: true

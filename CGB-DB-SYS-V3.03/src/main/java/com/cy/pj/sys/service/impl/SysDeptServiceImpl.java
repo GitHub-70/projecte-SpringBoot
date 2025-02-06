@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import com.cy.pj.common.annotation.ClearCache;
 import com.cy.pj.common.annotation.RequiredCache;
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.pojo.Node;
+import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.dao.SysDeptDao;
 import com.cy.pj.sys.po.SysDept;
 import com.cy.pj.sys.service.SysDeptService;

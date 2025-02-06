@@ -1,8 +1,8 @@
 package com.cy.pj.sys.service;
 import java.util.List;
 
-import com.cy.pj.common.dto.CheckBox;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.dto.CheckBox;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.po.SysRole;
 import com.cy.pj.sys.po.SysRoleMenu;
 

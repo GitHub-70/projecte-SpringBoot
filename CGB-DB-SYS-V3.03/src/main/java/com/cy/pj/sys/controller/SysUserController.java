@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cy.pj.common.vo.JsonResult;
+import com.cy.pj.sys.vo.JsonResult;
 import com.cy.pj.sys.po.SysUser;
 import com.cy.pj.sys.service.SysUserService;
 

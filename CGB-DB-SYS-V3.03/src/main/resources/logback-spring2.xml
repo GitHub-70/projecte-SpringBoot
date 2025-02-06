@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <!-- spring boot提供了logback的默认配置 -->
+   <!-- <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />-->
+    <!--用来定义日志文件-->
+    <springProperty scope="context" name="currentEnv" source="spring.profiles.active" />
+    <springProperty scope="context" name="applicationName" source="spring.application.name" />
+
+    <!-- appender是configuration的子节点，是负责写日志的组件。 -->
+    <!-- ConsoleAppender：把日志标准输出到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- 默认情况下，每个日志事件都会立即刷新到基础输出流。 这种默认方法更安全，因为如果应用程序在没有正确关闭appender的情况下退出，则日志事件不会丢失。
+         但是，为了显着增加日志记录吞吐量，您可能希望将immediateFlush属性设置为false -->
+        <!--<immediateFlush>true</immediateFlush>-->
+
+        <encoder>
+            <!-- %37():如果字符没有37个字符长度,则左侧用空格补齐 -->
+            <!-- %-37():如果字符没有37个字符长度,则右侧用空格补齐 -->
+            <!-- %15.15():如果记录的线程字符长度小于15(第一个)则用空格在左侧补齐,如果字符长度大于15(第二个),则从开头开始截断多余的字符 -->
+            <!-- %-40.40():如果记录的logger字符长度小于40(第一个)则用空格在右侧补齐,如果字符长度大于40(第二个),则从开头开始截断多余的字符 -->
+            <!-- %msg：日志打印详情 -->
+            <!-- %n:换行符 -->
+            <!-- %highlight():转换说明符以粗体红色显示其级别为ERROR的事件，红色为WARN，BLUE为INFO，以及其他级别的默认颜色。 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) --- [%15.15(%thread)] %cyan(%-40.40(%logger{40})) : %msg%n</pattern>
+
+            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--启用 sql 日志专用通道，其他日志为 INFO 级别，方便排查问题-->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <!-- 启用 sql 中带参数的日志（注意脱敏） -->
+    <!--<logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>-->
+    <!-- 显示SQL 但不记录参数 （防止数据泄漏） -->
+    <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+
+    <!--给定记录器的每个启用的日志记录请求都将转发到该记录器中的所有appender以及层次结构中较高的appender（不用在意level值）。
+    换句话说，appender是从记录器层次结构中附加地继承的。
+    例如，如果将控制台appender添加到根记录器，则所有启用的日志记录请求将至少在控制台上打印。
+    如果另外将文件追加器添加到记录器（例如L），则对L和L'子项启用的记录请求将打印在文件和控制台上。
+    通过将记录器的additivity标志设置为false，可以覆盖此默认行为，以便不再添加appender累积-->
+
+    <!-- configuration中最多允许一个root，级别的logger如果没有设置级别则从父级别root继承 -->
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="STDOUT" />-->
+<!--    </root>-->
+
+    <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
+    <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
+    <!--<logger name="com.cy.pj" level="INFO">
+        <appender-ref ref="info_log" />
+        <appender-ref ref="error_log" />
+        <appender-ref ref="STDOUT" />
+    </logger>-->
+
+    <!-- 利用logback输入mybatis的sql日志，
+    注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及祖先的logger中，就会出现日志文件中sql重复打印-->
+    <!-- 指定项目中某个包的日志记录级别 -->
+    <!--<logger name="com.cy.pj.sys.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="info_log" />
+        <appender-ref ref="error_log" />
+        <appender-ref ref="STDOUT" />
+    </logger>-->
+
+
+    <!-- 定义 SQL 专用日志文件 -->
+    <appender name="SQL_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/sql-debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/home/logs/${applicationName}-${currentEnv}-sql-debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 按包路径隔离日志级别 -->
+    <logger name="com.cy.pj.sys.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="SQL_DEBUG" />
+    </logger>
+
+    <!-- 在日志配置中注册脱敏规则 -->
+    <conversionRule conversionWord="maskMsg" converterClass="com.cy.pj.common.log.LogMaskConverter"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %maskMsg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志采样（降低 DEBUG 日志量） 在高峰期仅记录部分 DEBUG 日志 -->
+    <!--<turboFilter class="ch.qos.logback.classic.turbo.SamplingTurboFilter">-->
+    <turboFilter class="ch.qos.logback.classic.turbo.TurboFilter">
+        <name>SQL_SAMPLING</name>
+        <rate>0.01</rate> <!-- 采样率 1% -->
+        <logger>com.cy.pj.sys.dao</logger>
+        <level>DEBUG</level>
+    </turboFilter>
+
+
+</configuration>

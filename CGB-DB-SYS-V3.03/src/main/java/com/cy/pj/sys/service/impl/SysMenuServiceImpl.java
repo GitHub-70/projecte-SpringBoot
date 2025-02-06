@@ -1,13 +1,16 @@
 package com.cy.pj.sys.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.pojo.Node;
+import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.dao.SysMenuDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
@@ -26,7 +29,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 	
 //	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
-	
+
+	/**
+	 * 通过构造方法注入服务类
+	 * @param sysMenuDao
+	 * @param sysRoleMenuDao
+	 * @param sysUserRoleDao
+	 */
 	@Autowired
 	public SysMenuServiceImpl (SysMenuDao sysMenuDao,
 								SysRoleMenuDao sysRoleMenuDao,
@@ -62,9 +71,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 //	}
 	/**
 	 * @CacheEvict
-	 * 	--allEntries = true 更新key为menuCache的缓存
+	 * 	--allEntries = true 清除名为menuCache的所有缓存
+	 * 	作用：用于标记一个方法，表示在方法执行后需要清除缓存中的某些数据。可以用于删除或更新操作，
+	 * 	以确保缓存中的数据与实际数据保持一致。
+	 *  使用场景：适用于写操作（如插入、更新、删除），确保缓存中的数据不会过时。
 	 */
-//	@CacheEvict(value = "menuCache",allEntries = true)
+	@CacheEvict(value = "menuCache",allEntries = true)
 	@Override
 	public int updateObject(SysMenu entity) {
 	    //1.参数校验
@@ -81,9 +93,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 	/**
 	 * @CacheEvict
-	 * 	--allEntries = true 更新key为menuCache的缓存
+	 * 	--allEntries = true 清除名为menuCache的所有缓存
+	 * 	作用：用于标记一个方法，表示在方法执行后需要清除缓存中的某些数据。可以用于删除或更新操作，
+	 * 	以确保缓存中的数据与实际数据保持一致。
+	 *  使用场景：适用于写操作（如插入、更新、删除），确保缓存中的数据不会过时。
 	 */
-//	@CacheEvict(value = "menuCache",allEntries = true)
+	@CacheEvict(value = "menuCache",allEntries = true)
 	@Override
 	public int saveObject(SysMenu entity) {
 		//1.参数校验
@@ -99,10 +114,26 @@ public class SysMenuServiceImpl implements SysMenuService {
 	
 	@Override
 	public List<Node> findZtreeMenuNodes() {
-		return sysMenuDao.findZtreeMenuNodes();
+		List<SysMenu> menuNodes = sysMenuDao.findZtreeMenuNodes();
+		// 1.将查询结果转换为List<Node>
+		List<Node> nodeList = menuNodes.stream().map(sysMenu -> {
+			Node node = new Node();
+			node.setId(sysMenu.getId());
+			node.setParentId(sysMenu.getParentId());
+			node.setName(sysMenu.getName());
+			return node;
+		}).collect(Collectors.toList());
+		return nodeList;
 	}
-	
-	
+
+	/**
+	 * @CacheEvict
+	 * 	--allEntries = true 清除名为menuCache的所有缓存
+	 * 	作用：用于标记一个方法，表示在方法执行后需要清除缓存中的某些数据。可以用于删除或更新操作，
+	 * 	以确保缓存中的数据与实际数据保持一致。
+	 *  使用场景：适用于写操作（如插入、更新、删除），确保缓存中的数据不会过时。
+	 */
+	@CacheEvict(value = "menuCache", allEntries = true/*, key = "#id"*/)
 	@Override
 	public int deleteObject(Integer id) {
 		//1.参数校验
@@ -125,8 +156,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @Cacheable
 	 * 		--该方法会去找key为menuCache 的缓存
 	 * 		--查询的结果会放入 menuCache 缓存中
+	 *
+	 * 	作用：用于标记一个方法，表示该方法的返回结果可以被缓存。当方法被调用时，
+	 * 	Spring 会首先检查缓存中是否存在该方法的结果，如果存在则直接返回缓存的结果，
+	 * 	否则执行方法并将结果存入缓存。
+	 *
+	 *  使用场景：适用于读取操作，特别是那些计算成本高或者数据不经常变化的方法。
 	 */
-//    @Cacheable(value = "menuCache") //此注解描述的方法为一个缓存切入点方法
+    @Cacheable(value = "menuCache") //此注解描述的方法为一个缓存切入点方法
 	@Override
 	public List<SysMenu> findObjects() {
 		return sysMenuDao.findObjects();

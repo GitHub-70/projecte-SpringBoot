@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.dto.CheckBox;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.dto.CheckBox;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.dao.SysRoleDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.po.SysRole;

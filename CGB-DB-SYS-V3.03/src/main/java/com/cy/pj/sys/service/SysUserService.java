@@ -2,7 +2,7 @@ package com.cy.pj.sys.service;
 
 import java.util.Map;
 
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.po.SysUser;
 import com.cy.pj.sys.po.SysUserDept;
 

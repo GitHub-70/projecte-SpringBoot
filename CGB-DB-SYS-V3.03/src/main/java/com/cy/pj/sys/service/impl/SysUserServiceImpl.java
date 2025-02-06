@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cy.pj.common.annotation.RequiredLog;
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.common.utils.AssertUtils;
 import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.dao.SysUserDao;

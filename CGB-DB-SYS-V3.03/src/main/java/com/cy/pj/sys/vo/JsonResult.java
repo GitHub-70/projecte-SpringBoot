@@ -1,4 +1,4 @@
-package com.cy.pj.common.vo;
+package com.cy.pj.sys.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

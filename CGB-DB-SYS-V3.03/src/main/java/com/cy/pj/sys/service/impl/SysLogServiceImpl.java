@@ -3,7 +3,7 @@ package com.cy.pj.sys.service.impl;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.cy.pj.common.exception.ServiceException;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.common.utils.ExcelDocmentUtil;
 import com.cy.pj.common.utils.ExcelDownloadUtil;
 import com.cy.pj.sys.dao.SysLogDao;

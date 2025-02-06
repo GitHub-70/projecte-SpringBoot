@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.cy.pj.sys.service.SysLogService;
 import com.cy.pj.sys.po.SysLog;
-import com.cy.pj.common.vo.JsonResult;
-import com.cy.pj.common.pojo.PageObject;
+import com.cy.pj.sys.vo.JsonResult;
+import com.cy.pj.sys.pojo.PageObject;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

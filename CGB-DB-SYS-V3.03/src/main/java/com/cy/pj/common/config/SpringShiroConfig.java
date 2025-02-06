@@ -77,6 +77,8 @@ public class SpringShiroConfig {
 	    chainDefinition.addPathDefinition("/swagger-ui.html", "anon");
 	    chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
 	    chainDefinition.addPathDefinition("/webjars/**", "anon");
+		// actuator监控路径
+	    chainDefinition.addPathDefinition("/actuator/**", "anon");
 		// swagger api文档路径 http://localhost:8082/v2/api-docs
 	    chainDefinition.addPathDefinition("/v2/**", "anon");
 	    // 登出 用logout

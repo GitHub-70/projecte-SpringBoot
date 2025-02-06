@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.cy.pj.common.pojo.Node;
+import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.po.SysDept;
 
 
