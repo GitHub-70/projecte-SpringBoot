@@ -46,7 +46,7 @@ public class MysqlJdbc {
 		
 	}
 	/**
-	 * 批处理+手动提交事务：100万数据大概用时9分钟
+	 * 批处理+手动提交事务：100万数据大概用时9分钟，未添加 rewriteBatchedStatements=true 参数，实际是一条一条的插入
 	 * 在url中添加参数：rewriteBatchedStatements=true 100万数据大概用时一分半钟
 	 * 		rewriteBatchedStatements=true 该参数添加后，insert table values (...),(...)插入数据
 	 * 		验证：基础sql骨架中，以分号;结尾,报错提示中会显示

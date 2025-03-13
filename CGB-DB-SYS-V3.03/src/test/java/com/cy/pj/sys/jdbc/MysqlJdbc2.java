@@ -13,6 +13,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MysqlJdbc2 {
 	
 	/**
+	 * oracle 批处理发送的 sql骨架 是以  INSERT INTO table (id, name) VALUES (:1, :2) 形式插入
+	 *        在批处理时，会重用同一条预编译语句，添加多组参数，减少解析的开销。
+	 * -- 预编译阶段（仅一次）
+	 * PREPARE STATEMENT: INSERT INTO user (id, name) VALUES (?, ?)
+	 *
+	 * -- 执行阶段（批量参数绑定）
+	 * EXECUTE BATCH PARAMETERS:
+	 *   [1, "Alice"]
+	 *   [2, "Bob"]
+	 *   [3, "Charlie"]
+	 *
+	 * MySQL 批处理发送的 sql骨架 是以 insert table values(...),(...),(...)形式插入
+	 * 注意 values 后面参数的适量性，防止性能的消耗及堆内存溢出
+	 *
+	 *
+	 *
 	 *  以insert table values(...),(...),(...)形式插入
 	 *  注意堆内存溢出
 	 *  一千万数据插入 140980 毫秒
