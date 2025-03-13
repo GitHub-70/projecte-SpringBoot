@@ -15,6 +15,8 @@ import com.google.common.collect.Lists;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -33,13 +35,27 @@ import java.util.Optional;
 
 @Service
 public class SysLogServiceImpl implements SysLogService {
+
+	private static final Logger logger = LoggerFactory.getLogger(SysLogServiceImpl.class);
 	
 	@Autowired
 	private SysLogDao sysLogDao;
 	//将来希望此业务方法参与到其它事务中执行,传播特性设置为Propagation.REQUIRED
 	//将来希望此业务方法始终运行在一个独立事务中,传播特性设置为Propagation.REQUIRES_NEW
 	//将写日志操作放在一个独立的事务
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+
+	/**
+	 * 1. Spring 事务管理特性
+	 * 通过 @Transactional 注解声明的方法会绑定到 同一个线程，进而绑定到 同一个连接
+	 * 连接获取后会被存入 ThreadLocal，后续所有数据库操作自动复用
+	 * timeout = 3000 避免长事务阻塞连接
+	 *
+	 * @param entity
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW,
+			rollbackFor = Exception.class,
+			timeout = 3000
+	)
 	@Async("getSuSuAsyncTaskExecutor2") //此注解描述的方法会运行在spring框架提供的一个线程中
 	/**
 	 * @Async 在默认的情况下，使用的是SimpleAsyncTaskExecutor线程池，
@@ -110,9 +126,10 @@ public class SysLogServiceImpl implements SysLogService {
 			workbook.write(outputStream);
 			workbook.write(fileOutputStream);
 			bytes = outputStream.toByteArray();
+			throw new IOException("测试异常");
 		} catch (IOException e) {
 			// 处理异常
-			e.printStackTrace();
+			logger.error("下载报表异常", e);// 堆栈信息记录到日志文件
 		}
 		return bytes;
 	}
@@ -152,6 +169,7 @@ public class SysLogServiceImpl implements SysLogService {
 			// 注意：关闭工作簿前 将流设置到 response
 			workbook.close();
 		} catch (Exception e){
+
 			e.printStackTrace();
 		}
 
@@ -176,6 +194,7 @@ public class SysLogServiceImpl implements SysLogService {
 //			ExcelDownloadUtil.downloadExcel(response, dataRows, rowsName, "日志列表");
 			ExcelDownloadUtil.downloadExcel2(response, dataRows, rowsName, "日志列表");
 		} catch (IOException e) {
+			logger.error("下载报表异常", e);// 堆栈信息记录到日志文件
 			throw new RuntimeException(e);
 		}
 	}
