@@ -9,7 +9,11 @@ import org.apache.ibatis.annotations.Select;
 import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.po.SysDept;
 
-
+/**
+ * DAO层
+ * 1 ．主要用来封装对DB的访问（CRUD操作）。
+ * 2 ．通过接收Business层的数据，把POJO持久化为PO。
+ */
 @Mapper
 public interface SysDeptDao {
       /**

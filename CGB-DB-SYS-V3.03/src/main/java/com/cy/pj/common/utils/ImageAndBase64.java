@@ -12,7 +12,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.util.Base64;
+//import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class ImageAndBase64 {
 
@@ -31,7 +32,8 @@ public class ImageAndBase64 {
 		if (!StringUtils.isEmpty(filePath)) {
 			try {
 				byte[] readBytes = Files.readAllBytes(Paths.get(filePath));
-				encode = Base64.encode(readBytes);
+//				encode = Base64.encode(readBytes);
+				encode = Base64.getEncoder().encodeToString(readBytes);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -58,7 +60,9 @@ public class ImageAndBase64 {
 				file.getParentFile().mkdirs();
 			}
 			//com.sun.org.apache.xml.internal.security.utils.Base64
-			byte[] decode = Base64.decode(base64Encode);
+//			byte[] decode = Base64.decode(base64Encode);
+			// java.util.Base64
+			byte[] decode = Base64.getDecoder().decode(base64Encode);
 			// 文件流写入
 			Files.write(Paths.get(fileName), decode, StandardOpenOption.CREATE);
 //			Files.write(Paths.get(fileName), java.util.Base64.getDecoder().decode(base64Encode), StandardOpenOption.CREATE);

@@ -3,6 +3,12 @@ import java.io.Serializable;
 import java.util.List;
 /**基于此对象封装分页信息*/
 
+/**
+ * plain ordinary java object 无规则简单java对象
+ *
+ * 一个中间对象，可以转化为PO、DTO、VO。
+ * @param <T>
+ */
 public class PageObject<T> implements Serializable{
 	
 	public PageObject () {}

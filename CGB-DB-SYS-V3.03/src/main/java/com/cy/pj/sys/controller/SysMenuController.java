@@ -6,6 +6,8 @@ import com.cy.pj.sys.vo.JsonResult;
 import com.cy.pj.sys.po.SysMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
+import javax.validation.Valid;
+
 /**
  * 更多控制层请求参数格式
  * https://blog.csdn.net/Brad_PiTt7/article/details/107969206
@@ -38,7 +40,7 @@ public class SysMenuController {
 			@ApiResponse(code = 0, message = "保存失败")
 	})
 	@PostMapping("doSaveObject")
-	public JsonResult doSaveObject(@RequestBody SysMenu entity) {
+	public JsonResult doSaveObject(@Valid @RequestBody SysMenu entity) {
 		sysMenuService.saveObject(entity);
 		return new JsonResult("save ok");
 	}

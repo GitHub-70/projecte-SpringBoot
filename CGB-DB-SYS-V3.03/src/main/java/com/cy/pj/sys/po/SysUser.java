@@ -2,6 +2,7 @@ package com.cy.pj.sys.po;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class SysUser implements Serializable{
 	@ApiModelProperty(value = "加密盐值")
 	private String salt;//盐值
 	@ApiModelProperty(value = "邮箱")
+	@Email(message = "邮箱格式不正确")
 	private String email;
 	@ApiModelProperty(value = "电话")
 	private String mobile;

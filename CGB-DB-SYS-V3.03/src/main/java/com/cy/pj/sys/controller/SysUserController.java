@@ -6,14 +6,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cy.pj.sys.vo.JsonResult;
 import com.cy.pj.sys.po.SysUser;
 import com.cy.pj.sys.service.SysUserService;
+
+import javax.validation.Valid;
 
 @Api(tags = "用户模块")
 @RestController
@@ -96,7 +95,7 @@ public class SysUserController {
 			@ApiResponse(code = 0, message = "修改失败")
 	})
 	@PostMapping("doUpdateObject")
-	public JsonResult doUpdateObject(SysUser entity,Integer[]roleIds) {
+	public JsonResult doUpdateObject(SysUser entity, Integer[]roleIds) {
 		sysUserService.updateObject(entity, roleIds);
 		return new JsonResult("update ok");
 	}

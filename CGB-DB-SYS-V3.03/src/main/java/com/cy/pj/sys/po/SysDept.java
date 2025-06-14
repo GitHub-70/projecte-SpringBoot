@@ -6,6 +6,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * PO：persistent object 持久对象
+ *
+ * 1 ．有时也被称为Data对象，对应数据库中的entity，可以简单认为一个PO对应数据库中的一条记录。
+ *
+ * 2 ．在hibernate持久化框架中与insert/delet操作密切相关。
+ *
+ * 3 ．PO中不应该包含任何对数据库的操作。
+ *
  * 部门PO对象
  */
 

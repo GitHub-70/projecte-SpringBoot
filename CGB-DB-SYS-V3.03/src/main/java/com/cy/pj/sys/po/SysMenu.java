@@ -2,6 +2,7 @@ package com.cy.pj.sys.po;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class SysMenu implements Serializable{
 
 	/**菜单名称*/
 	@ApiModelProperty(value = "菜单名称")
+	@NotBlank(message = "菜单名称不允许为空")
 	private String name;
 
 	/**菜单url: log/doFindPageObjects*/

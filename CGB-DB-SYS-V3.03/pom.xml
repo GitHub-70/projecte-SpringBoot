@@ -124,6 +124,14 @@
             <version>3.17</version>
         </dependency>
 
+        <!-- easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+
         <!-- easypoi 对定制化的导出支持非常的丰富，如果当前的项目需求，并发量不大、
         数据量也不大，但是需要导出 excel 的文件样式千差万别使用-->
         <dependency>
