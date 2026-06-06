@@ -1,4 +1,4 @@
-package com.cy.pj.sys.po;
+package com.cy.pj.sys.bo;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +11,10 @@ import lombok.Data;
  *  1)业务层进行多次单表查询(先查角色表再查菜单表)-最简单的一种
  *  2)数据层做嵌套查询(数据层多次查询,基于角色表的查询结果再次查询角色菜单关系表)
  *  3)在数据层执行多表关联查询(join)
+ *
+ *  BO: business object：业务对象BO把业务逻辑封转为一个对象，
+ *  通过调用DAO方法，结合PO或VO进行业务操作PO组合，如投保人是一个PO，被保险人是一个PO，
+ *  险种信息是一个PO等等，他们组合气来是第一张保单的BO
  */
 @Data
 public class SysRoleMenu implements Serializable{

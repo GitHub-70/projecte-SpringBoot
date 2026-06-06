@@ -4,7 +4,7 @@ import java.util.List;
 import com.cy.pj.sys.dto.CheckBox;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.po.SysRole;
-import com.cy.pj.sys.po.SysRoleMenu;
+import com.cy.pj.sys.bo.SysRoleMenu;
 
 public interface SysRoleService {
 	List<CheckBox> findRoles();

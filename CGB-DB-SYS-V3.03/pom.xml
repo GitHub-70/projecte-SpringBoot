@@ -17,10 +17,16 @@
     <name>CGB-DB-SYS-V3.03</name>
     <description>Demo project for Spring Boot</description>
 
+    <!-- 跳过测试打包，使jar包更小？ -->
     <properties>
         <java.version>1.8</java.version>
         <skipTests>true</skipTests>
+        <jasypt-spring-boot-starter.version>3.0.3</jasypt-spring-boot-starter.version>
+        <btrace.version>2.2.3</btrace.version>
+        <!-- 未激活特定的 profile 时，添加的默认值 -->
+        <btrace.home>D:/soft/btrace/btrace-v2.2.3</btrace.home>
     </properties>
+
 
     <dependencies>
         <!-- 添加spring aop依赖支持 -->
@@ -252,7 +258,10 @@
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>3.0.3</version>
+            <!--<version>${jasypt-spring-boot-starter.version}</version>-->
         </dependency>
+
+
 
 
         <!-- Add the OkHttp dependency -->
@@ -285,6 +294,29 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
+        <!--引入 btrace lib目录下的 jar 包-->
+        <dependency>
+            <groupId>org.openjdk.btrace</groupId>
+            <artifactId>btrace-agent</artifactId>
+            <version>${btrace.version}</version>
+            <scope>system</scope>
+            <systemPath>${btrace.home}/libs/btrace-agent.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.btrace</groupId>
+            <artifactId>btrace-boot</artifactId>
+            <version>${btrace.version}</version>
+            <scope>system</scope>
+            <systemPath>${btrace.home}/libs/btrace-boot.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.btrace</groupId>
+            <artifactId>btrace-client</artifactId>
+            <version>${btrace.version}</version>
+            <scope>system</scope>
+            <systemPath>${btrace.home}/libs/btrace-client.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -293,7 +325,56 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>io.btrace</groupId>
+                <artifactId>btrace-maven-plugin</artifactId>
+                <version>2.2.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>btracec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 指定 BTrace 脚本源文件目录 -->
+                    <sourceDirectory>src/main/btrace</sourceDirectory>
+                    <!-- 指定编译输出目录 -->
+                    <outputDirectory>target/classes</outputDirectory>
+                    <!-- 添加实际需要的类路径 -->
+                    <classpathElements>
+                        <classpathElement>${project.build.outputDirectory}</classpathElement>
+                    </classpathElements>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <!-- btrace.home 动态配置 -->
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <btrace.home>D:/soft/btrace/btrace-v2.2.3</btrace.home>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <btrace.home>/opt/btrace</btrace.home>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

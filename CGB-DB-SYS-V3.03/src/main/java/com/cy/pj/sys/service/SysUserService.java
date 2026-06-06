@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.po.SysUser;
-import com.cy.pj.sys.po.SysUserDept;
+import com.cy.pj.sys.bo.SysUserDept;
 
 public interface SysUserService {
 

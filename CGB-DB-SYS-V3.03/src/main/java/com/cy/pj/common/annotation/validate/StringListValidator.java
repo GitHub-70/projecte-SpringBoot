@@ -16,7 +16,11 @@ import java.util.Set;
  */
 public class StringListValidator implements ConstraintValidator<StringList, String> {
 
+    /**
+     * 存放参数列表
+     */
     private Set<String> params = new HashSet<>();
+
     /**
      * 初始化方法
      *   将所有参数放入set集合中

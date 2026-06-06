@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.cy.pj.sys.po.SysUser;
-import com.cy.pj.sys.po.SysUserDept;
+import com.cy.pj.sys.bo.SysUserDept;
 
 import java.util.*;
 @Mapper

@@ -23,7 +23,7 @@ import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.po.SysUser;
-import com.cy.pj.sys.po.SysUserDept;
+import com.cy.pj.sys.bo.SysUserDept;
 import com.cy.pj.sys.service.SysUserService;
 import com.github.pagehelper.util.StringUtil;
 

@@ -1,6 +1,7 @@
 package com.cy.pj.sys.dao;
 import java.util.*;
 
+import com.cy.pj.sys.bo.SysRoleMenu;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;

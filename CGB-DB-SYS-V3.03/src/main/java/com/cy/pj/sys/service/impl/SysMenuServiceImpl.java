@@ -15,7 +15,7 @@ import com.cy.pj.sys.dao.SysMenuDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.dao.SysUserRoleDao;
 import com.cy.pj.sys.po.SysMenu;
-import com.cy.pj.sys.po.SysUserMenu;
+import com.cy.pj.sys.bo.SysUserMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 @Service
@@ -162,6 +162,33 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * 	否则执行方法并将结果存入缓存。
 	 *
 	 *  使用场景：适用于读取操作，特别是那些计算成本高或者数据不经常变化的方法。
+	 *	@Cacheable 注解的主要属性
+	 * 		value/name：指定缓存的名称，必填项。
+	 * 		key：缓存数据的key，默认使用方法参数组合。
+	 * 		condition：满足条件才缓存。
+	 * 		unless：满足条件不缓存。
+	 * 		keyGenerator：自定义key生成器。
+	 * 		cacheManager：指定使用的缓存管理器。
+	 *
+	 * 	Spring默认的缓存 key生成规则：
+	 * 		1.如果方法没有参数，那么key为 SimpleKey.EMPTY
+	 * 		2.如果方法有一个参数，那么key为该参数值
+	 * 		3.如果方法有多个参数，那么key为包含所有参数的SimpleKey对象
+	 *
+	 * 使用注意事项
+	 *  	1.必须开启缓存：需要在配置类或启动类上添加 @EnableCaching 注解。
+	 * 		2.缓存一致性：当数据发生变化时（增删改），需要使用 @CacheEvict 或 @CachePut 清除或更新缓存，
+	 * 		确保缓存数据与实际数据的一致性。项目中在修改、新增、删除菜单时都使用了 @CacheEvict 注解清除菜单缓存。
+	 * 		3.key 的设计：默认情况下，Spring 使用方法参数作为缓存的 key，但对于复杂对象，需要自定义 key 策略。
+	 * 		4.缓存管理器：Spring Boot 默认使用 ConcurrentMap 作为缓存存储，生产环境建议使用 Redis、Ehcache 等专业缓存组件。
+	 * 		5.异常处理：当方法执行抛出异常时，不会缓存结果。
+	 * 		6.同步问题：在高并发场景下，可以考虑使用 sync = true 属性来避免缓存击穿：
+	 *
+	 * 	相关注解
+	 * 		@CacheEvict：用于清除缓存，通常用于更新或删除操作后。
+	 * 		@CachePut：无论缓存中是否存在，都会执行方法并更新缓存。
+	 * 		@Caching：可以组合多个 @Cacheable、@CacheEvict 或 @CachePut 注解。
+	 * 		@CacheConfig：类级别的注解，用于统一设置缓存配置。
 	 */
     @Cacheable(value = "menuCache") //此注解描述的方法为一个缓存切入点方法
 	@Override

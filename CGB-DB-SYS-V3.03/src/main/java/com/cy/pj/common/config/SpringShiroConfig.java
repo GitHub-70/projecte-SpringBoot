@@ -72,6 +72,8 @@ public class SpringShiroConfig {
 	    chainDefinition.addPathDefinition("/base64-js-master/**", "anon");
 	    chainDefinition.addPathDefinition("/jquerybase64/**", "anon");
 	    chainDefinition.addPathDefinition("/user/doLogin", "anon");
+		// 登录页面必须匿名访问，否则未登录用户无法看到登录页，会陷入重定向循环
+	    chainDefinition.addPathDefinition("/doLoginUI", "anon");
 		// swagger2 相关资源放行 用anon  具体的资源路径在 springfox-swagger2-ui-2.9.2.jar包中
 		// 接口请求地址 http://localhost:8082/swagger-ui.html
 	    chainDefinition.addPathDefinition("/swagger-ui.html", "anon");

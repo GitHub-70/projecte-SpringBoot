@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.pj.sys.dao.SysMenuDao">
 
-    <resultMap id="sysUserMenu" type="com.cy.pj.sys.po.SysUserMenu">
+    <resultMap id="sysUserMenu" type="com.cy.pj.sys.bo.SysUserMenu">
     
        <id property="id" column="id"/>
        <result property="name" column="name"/>
        <result property="url" column="url"/>
        <collection property="childs" 
-                   ofType="com.cy.pj.sys.po.SysUserMenu">
+                   ofType="com.cy.pj.sys.bo.SysUserMenu">
           <id property="id" column="cid"/>
           <result property="name" column="cname"/>
           <result property="url" column="curl"/>

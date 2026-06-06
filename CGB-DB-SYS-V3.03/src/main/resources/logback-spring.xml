@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true"> <!-- 生产上 debug="false" 避免生产环境输出过多调试信息。 -->
+<!-- 生产上 debug="false" 避免生产环境输出过多调试信息。 -->
+<configuration debug="true">
     <!-- spring boot提供了logback的默认配置 -->
    <!-- <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
@@ -40,10 +41,10 @@
     <appender name="info_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
         <!-- 日志文件路径和名称 <File>的优先级大于<fileNamePattern> -->
-        <!-- 有<File>属性，举例：今日为 2019-06-04，系统会将日志内容全部写入/home/logs/CGB-DB-SYS-V3.03-local-info.log中。 -->
+        <!-- 有<File>属性，举例：今日为 2019-06-04，系统会将日志内容全部写入/app/logsCGB-DB-SYS-V3.03-local-info.log中。 -->
         <!-- 在2019-06-05凌晨，CGB-DB-SYS-V3.03-local-info.log会被重命名为 CGB-DB-SYS-V3.03-local-info.2019-06-04.log -->
         <!-- 然后再生成新的 CGB-DB-SYS-V3.03-local-info.log文件，每日往返重复 -->
-        <File>/home/logs/${applicationName}-${currentEnv}-info.log</File>
+        <File>/app/logs/${applicationName}-${currentEnv}-info.log</File>
         <!--是否追加到文件末尾,默认为true-->
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -61,9 +62,9 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 
             <!-- 日志文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
-            <!-- 文件名：/home/logs/${applicationName}-${currentEnv}.2017-12-05.0.log -->
+            <!-- 文件名：/app/logs/${applicationName}-${currentEnv}.2017-12-05.0.log -->
             <!-- 注意：SizeAndTimeBasedRollingPolicy中 ％i和％d令牌都是强制性的，必须存在，要不会报错 -->
-            <fileNamePattern>/home/logs/${applicationName}-${currentEnv}-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/app/logs/${applicationName}-${currentEnv}-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
             <!-- 每产生一个日志文件，该日志文件的保存期限为30天, ps:maxHistory的单位是根据fileNamePattern中的翻转策略自动推算出来的,例如上面选用了yyyy-MM-dd,则单位为天
             如果上面选用了yyyy-MM,则单位为月,另外上面的单位默认为yyyy-MM-dd-->
@@ -91,7 +92,7 @@
     <!--             2.如果日期没有发生变化，但是当前日志的文件大小超过10MB时，对当前日志进行分割 重命名-->
     <appender name="error_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--日志文件路径和名称-->
-        <File>/home/logs/${applicationName}-${currentEnv}-error.log</File>
+        <File>/app/logs/${applicationName}-${currentEnv}-error.log</File>
 
         <!--是否追加到文件末尾,默认为true-->
         <append>true</append>
@@ -109,9 +110,9 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 
             <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
-            <!-- 文件名：/home/logs/${applicationName}-${currentEnv}.2017-12-05.0.log -->
+            <!-- 文件名：/app/logs/${applicationName}-${currentEnv}.2017-12-05.0.log -->
             <!-- 注意：SizeAndTimeBasedRollingPolicy中 ％i和％d令牌都是强制性的，必须存在，要不会报错 -->
-            <fileNamePattern>/home/logs/${applicationName}-${currentEnv}-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/app/logs/${applicationName}-${currentEnv}-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
             <!-- 每产生一个日志文件，该日志文件的保存期限为30天, ps:maxHistory的单位是根据fileNamePattern中的翻转策略自动推算出来的,例如上面选用了yyyy-MM-dd,则单位为天
             如果上面选用了yyyy-MM,则单位为月,另外上面的单位默认为yyyy-MM-dd-->
@@ -133,11 +134,18 @@
     </appender>
 
     <!--启用 sql 日志专用通道，其他日志为 INFO 级别，方便排查问题-->
-    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <!-- ⚠️ 注意：org.hibernate.SQL 是 Hibernate/JPA 的 SQL 日志，MyBatis 不需要 -->
+    <!-- <logger name="org.hibernate.SQL" level="DEBUG"/> -->
+
+    <!-- ✅ MyBatis SQL 日志：Mapper 接口的完整包路径，设置 additivity="false"，防止 SQL 日志重复打印到文件 appender 中 -->
+    <logger name="com.cy.pj.sys.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
     <!-- 启用 sql 中带参数的日志（注意脱敏） -->
     <!--<logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>-->
     <!-- 显示SQL 但不记录参数 （防止数据泄漏） -->
-    <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>
+    <!--<logger name="org.hibernate.type.descriptor.sql" level="OFF"/>-->
 
     <root level="INFO">
         <appender-ref ref="error_log" />

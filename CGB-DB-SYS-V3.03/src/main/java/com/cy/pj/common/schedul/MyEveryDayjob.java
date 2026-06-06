@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  *
  */
-@Component
+//@Component
 public class MyEveryDayjob implements Job{
 	
 	private Logger logger = LoggerFactory.getLogger(MyEveryDayjob.class);

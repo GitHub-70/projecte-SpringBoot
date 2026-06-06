@@ -3,6 +3,7 @@ package com.cy.pj.common.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cy.pj.common.filter.ResponseBodyFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,4 +29,14 @@ public class FilterConfig {
 		reg.setOrder(1);//设置过滤器顺序,数字大于0时越小,优先级越高
 		return reg;
 		}
+
+	@Bean
+	public FilterRegistrationBean<ResponseBodyFilter> responseBodyFilter() {
+		FilterRegistrationBean<ResponseBodyFilter> registration = new FilterRegistrationBean<>();
+		registration.setFilter(new ResponseBodyFilter()); //添加过滤器
+		registration.addUrlPatterns("/*"); //设置过滤路径
+		registration.setName("responseBodyFilter");
+		registration.setOrder(2); // 设置过滤器顺序
+		return registration;
+	}
 }

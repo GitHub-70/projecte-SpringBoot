@@ -1,6 +1,7 @@
 package com.cy;
 
 
+import com.cy.pj.other.controller.ImageController;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import com.cy.pj.common.utils.ImageAndBase64;
 import com.cy.pj.common.utils.ImageAndJDKBase64;
-import com.cy.pj.sys.controller.ImageController;
-import com.cy.pj.sys.controller.ImageControllerTest;
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import com.cy.pj.other.controller.ImageControllerTest;
 
 @SpringBootTest
 class ApplicationTests {
 
 	@Autowired
-	private ImageController ImageController;
+	private ImageController imageController;
 	@Autowired
 	private ImageControllerTest imageControllerTest;
 	@Autowired
@@ -34,7 +33,7 @@ class ApplicationTests {
 	@Test
 	void contextLoads() throws Exception {
 		System.out.println("图片编码后大小：" + base64.getBytes().length/1024 + "kb");
-		String image = ImageController.image(base64);
+		String image = imageController.image(base64);
 //		String imageTest = imageControllerTest.image(base64);
 		System.out.println(image);
 	}

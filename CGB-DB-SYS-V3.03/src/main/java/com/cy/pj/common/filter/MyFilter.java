@@ -24,6 +24,7 @@ public class MyFilter implements Filter{
 	private  AtomicInteger count;
 	
 	@Override
+
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// 初始化工作
 		count = new AtomicInteger(0);

@@ -44,7 +44,7 @@
          </where>
        </sql>
        
-      <resultMap type="com.cy.pj.sys.po.SysUserDept" id="sysUserDept">
+      <resultMap type="com.cy.pj.sys.bo.SysUserDept" id="sysUserDept">
          <id property="id" column="id"/>
          <!-- association 一般应用于one2one或many2one这种查询 -->
          <association property="sysDept"

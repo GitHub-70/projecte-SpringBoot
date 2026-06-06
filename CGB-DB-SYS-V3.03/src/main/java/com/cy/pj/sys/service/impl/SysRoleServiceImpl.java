@@ -13,7 +13,7 @@ import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.dao.SysRoleDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.po.SysRole;
-import com.cy.pj.sys.po.SysRoleMenu;
+import com.cy.pj.sys.bo.SysRoleMenu;
 import com.cy.pj.sys.service.SysRoleService;
 
 @Service

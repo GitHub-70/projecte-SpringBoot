@@ -2,7 +2,7 @@
 server:
   port: 8082
   servlet:
-   context-path: /
+    context-path: /
   tomcat:
     threads:
       max: 128
@@ -10,20 +10,33 @@ server:
 #spring
 spring:
   datasource:
-#    url: jdbc:mysql://192.168.137.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8
+    #    url: jdbc:mysql://192.168.137.1:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8
     url: jdbc:mysql://localhost:3306/dbms?serverTimezone=GMT%2B8&characterEncoding=utf8
     username: root
     # 判断是否是由ENC()包裹，是则为加密的字符串，否则为明文 启动参数：-Djasypt.encryptor.password=123456
     password: ENC(kbeZ+4fP+V1uoTE/KgXj2qeqfh4jmwU5)
+    # 明确指定驱动类（Spring Boot 2.x 推荐做法）
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 50
+      # 连接超时时间（毫秒），默认 30000（30秒）
+      connection-timeout: 10000
+      # 连接最大存活时间（毫秒），默认 1800000（30分钟）
+      max-lifetime: 1800000
+      # 空闲连接超时时间（毫秒），默认 600000（10分钟）
+      idle-timeout: 600000
+      # 连接测试查询（快速失败）
+      connection-test-query: SELECT 1
+      # 最小空闲连接数
+      minimum-idle: 5
+
   thymeleaf:
     cache: false
     prefix: classpath:/templates/pages/
     suffix: .html
   aop:
     #2.0版本及以后：false表示为目标对象基于JDK方式产生代理对象，不配置此项，或为true均使用cglib方式产生代理对象
-#    proxy-target-class: false
+    #    proxy-target-class: false
     proxy-target-class: true
   task:
     execution:
@@ -33,29 +46,33 @@ spring:
         keep-alive: 60000
         queue-capacity: 256
       thread-name-prefix: db-service-thread-
+  # 启用 Spring Boot 启动时打印启动信息，分析启动做了什么，耗时等
+  main:
+    log-startup-info: true
+    web-application-type: servlet
 
 ## sql 日志
-#  jpa:
-#    # 启用 SQL 日志
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        # 格式化输出的 SQL 日志
-#        format_sql: true
+  jpa:
+    # 启用 SQL 日志
+    show-sql: true
+    properties:
+      hibernate:
+        # 格式化输出的 SQL 日志
+        format_sql: true
 
 
 #mybatis
 mybatis:
   mapper-locations:
-  - classpath:/mapper/*/*.xml
+    - classpath:/mapper/*/*.xml
 #shiro 配置新的玩法
 shiro:
   loginUrl: /doLoginUI
   rememberMeManager:
-          cookie:
-            name: shiroRememberMe
-            maxAge: 3600  #单位秒
-            path: /
+    cookie:
+      name: shiroRememberMe
+      maxAge: 3600  #单位秒
+      path: /
   userNativeSessionManager: true
   sessionManager:
     sessionIdUrlRewritingEnabled: false
@@ -71,7 +88,7 @@ management:
     web:
       exposure:
         include:
-        - "*"
+          - "*"
 jasypt:
   encryptor:
     # 用来加解密的salt值
@@ -81,8 +98,17 @@ jasypt:
     password: 123456
     # 加密算法
     algorithm: PBEWithMD5AndDES
-    # 用来使用新的算法，默认为org.jasypt.salt.NoOPIVGenerator,这样的话我们就无法使用命令行中生成的密文
-#    iv-generator-classname: org.jasypt.salt.RandomIVGenerator
+    # 初始化向量（IV）:在密码学中，IV 是一个随机生成的数值块，它确保了即使相同的明文和密钥被反复加密，每次生成的密文也完全不同。
+    # 这能有效防御多种密码分析攻击，是现代加密算法的关键组成部分
+    # NoIvGenerator 意味着在实际加密过程中不会使用初始化向量。
+    # 适用场景：该配置主要用于兼容那些不支持或不需要外部 IV 的旧版加密算法，比如 PBEWithMD5AndDES。
+    # 可以把它看作是向 Jasypt 发出的一个明确指令：无需处理 IV。
+    # 使用 NoIvGenerator：由于相同的输入会得到完全相同的密文输出，这使得它在对抗“彩虹表”这类预计算攻击时相对脆弱。
+    # RandomIvGenerator 生成随机的、加密安全的初始化向量，这是现代加密实践的标准做法.
+    # 适用场景：该配置用于安全性要求更高、支持 IV 的高级算法，比如 PBEWITHHMACSHA512ANDAES_256。
+    # Jasypt 3.0.0 及以上版本的默认生成器就是这个
+    # 使用 RandomIvGenerator：得益于随机IV与随机盐（Salt）的双重加持，确保了即使明文和密钥固定，每次生成的密文也大相径庭，极大地提升了安全性。
+    #    iv-generator-classname: org.jasypt.salt.RandomIVGenerator  # 生成初始化向量IV
     # 显示的指定自定义加密器(与配置类定义bean的名称一致)
 #    bean: encryptorConfig
 

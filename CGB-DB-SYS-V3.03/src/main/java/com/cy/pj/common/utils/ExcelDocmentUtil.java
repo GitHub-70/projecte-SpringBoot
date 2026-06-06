@@ -1,5 +1,8 @@
 package com.cy.pj.common.utils;
 
+import com.alibaba.excel.EasyExcel;
+import com.cy.pj.common.listener.BatchExcelListener;
+import com.cy.pj.sys.service.excel.ExcelDataDealSevice;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -7,6 +10,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -155,5 +159,24 @@ public class ExcelDocmentUtil {
         hssfCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
         return hssfCellStyle;
+    }
+
+    /**
+     * Excel 导入
+     * @param filePath  excel文件路径
+     * @param excelDataDealSevice  excel数据个性化处理服务
+     */
+    public static void importExcel(String filePath, ExcelDataDealSevice excelDataDealSevice) {
+        File excelFile = new File(filePath);
+        // 只有当路径存在且是一个常规文件时才返回 true
+        if (!excelFile.isFile()){
+            // 注意：File.exists() 检查文件或目录是否存在
+            throw new RuntimeException("excel文件不存在");
+        }
+        if (excelDataDealSevice == null){
+            throw new RuntimeException("excel数据处理服务为空");
+        }
+        BatchExcelListener listener = new BatchExcelListener(excelDataDealSevice);
+        EasyExcel.read(excelFile, listener).sheet().doRead();
     }
 }

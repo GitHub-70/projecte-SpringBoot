@@ -1,5 +1,6 @@
 package com.cy;
 
+import com.cy.pj.sys.po.SysLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,6 +10,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -43,5 +50,6 @@ public class Application extends SpringBootServletInitializer{
 //		
 //		return builder.sources(Application.class);
 //	}
-	
+
+
 }

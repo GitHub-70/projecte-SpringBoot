@@ -1,9 +1,17 @@
-package com.cy.pj.sys.po;
+package com.cy.pj.sys.bo;
+
+import com.cy.pj.sys.po.SysDept;
 
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 封装用户部门信息
+ *
+ * BO: business object：业务对象BO把业务逻辑封转为一个对象，
+ * 通过调用DAO方法，结合PO或VO进行业务操作PO组合，如投保人是一个PO，被保险人是一个PO，
+ * 险种信息是一个PO等等，他们组合气来是第一张保单的BO
+ */
 public class SysUserDept implements Serializable{
 	private static final long serialVersionUID = 3776304095517793129L;
 	private Integer id;
@@ -14,7 +22,7 @@ public class SysUserDept implements Serializable{
 	private String mobile;
 	private Integer valid=1;
 	/**基于此对象存储部门信息*/
-	private SysDept sysDept; 
+	private SysDept sysDept;
 	private Date createdTime;
 	private Date modifiedTime;
 	private String createdUser;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cy.pj.sys.dto.Node;
 import com.cy.pj.sys.po.SysMenu;
-import com.cy.pj.sys.po.SysUserMenu;
+import com.cy.pj.sys.bo.SysUserMenu;
 
 public interface SysMenuService {
 	

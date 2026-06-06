@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import com.cy.pj.sys.po.SysMenu;
-import com.cy.pj.sys.po.SysUserMenu;
+import com.cy.pj.sys.bo.SysUserMenu;
 
 import java.util.*;
 @Mapper

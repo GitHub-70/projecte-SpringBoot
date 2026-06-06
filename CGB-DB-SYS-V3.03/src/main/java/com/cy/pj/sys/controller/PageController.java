@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cy.pj.common.utils.ShiroUtils;
 import com.cy.pj.sys.po.SysUser;
-import com.cy.pj.sys.po.SysUserMenu;
+import com.cy.pj.sys.bo.SysUserMenu;
 import com.cy.pj.sys.service.SysMenuService;
 
 /**

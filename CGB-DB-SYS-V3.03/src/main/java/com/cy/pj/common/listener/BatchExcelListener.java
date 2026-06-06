@@ -3,12 +3,15 @@ package com.cy.pj.common.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.metadata.data.CellData;
-import com.cy.pj.sys.service.excel.ExcelDataparseSevice;
+import com.cy.pj.sys.service.excel.ExcelDataDealSevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -16,7 +19,7 @@ import java.util.*;
  * @author cy
  *    注意：多线程处理时，不要使用单例模式
  */
-public class BatchExcelListener<T extends ExcelDataparseSevice> extends AnalysisEventListener<Map<Integer, String>> {
+public class BatchExcelListener<T extends ExcelDataDealSevice> extends AnalysisEventListener<Map<Integer, String>> {
 
     /**
      * 日志记录器
@@ -48,11 +51,6 @@ public class BatchExcelListener<T extends ExcelDataparseSevice> extends Analysis
     }
 
     /**
-     * 无参构造函数，用于测试。
-     */
-    public BatchExcelListener() {
-    }
-    /**
      * 解析excel表头。
      * @param headMap
      * @param context
@@ -80,13 +78,15 @@ public class BatchExcelListener<T extends ExcelDataparseSevice> extends Analysis
         // 当数据量达到一定程度时，可先处理数据，例如保存到数据库或缓存中
         int memoryMaxNum = 10000;
         if (dataList.size() == memoryMaxNum) {
-            processDataInBatch(dataList);
+            processDataInBatch(dataList, 1000);
             dataList.clear();
         }
     }
 
     /**
      * 所有数据解析完后动作。
+     * 小的数据量可以一次性处理，例如：上面定义的 memoryMaxNum为 10000
+     * 当数量小于 10000的数据量，调用该方法，可以一次性处理。
      * @param context
      */
     @Override
@@ -94,16 +94,16 @@ public class BatchExcelListener<T extends ExcelDataparseSevice> extends Analysis
         // 所有数据解析完成后的操作
         System.out.println("All data has been processed.");
         if (!CollectionUtils.isEmpty(dataList)){
-            processDataInBatch(dataList);
+            processDataInBatch(dataList, 1000);
         }
     }
 
     /**
-     * 处理数据
+     * 内部封装处理数据
      * @param dataList
      */
-    private void processDataInBatch(List<Map<String, Object>> dataList) {
-        int batchSize = 1000;
+    private void processDataInBatch(List<Map<String, Object>> dataList, int batchSize) {
+        batchSize = batchSize <= 0 ? 1000 : batchSize;
         for (int i = 0; i < dataList.size(); i += batchSize) {
             int end = Math.min(i + batchSize, dataList.size());
             List<Map<String, Object>> batch = dataList.subList(i, end);
@@ -112,12 +112,13 @@ public class BatchExcelListener<T extends ExcelDataparseSevice> extends Analysis
         }
     }
 
+    /**
+     * 个性化服务处理数据
+     * @param batch
+     */
     private void processBatch(List<Map<String, Object>> batch) {
         // 在这里处理每个批次的数据，例如保存到数据库
-//        service.excelDataDoSomething(batch);
-        for (Map<String, Object> row : batch) {
-            System.out.println(row);
-        }
+        service.excelDataDoSomething(batch);
     }
 
     private Object convertCellValue(CellData cellData) {

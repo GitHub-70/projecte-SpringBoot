@@ -1,4 +1,4 @@
-package com.cy.pj.sys.controller;
+package com.cy.pj.other.controller;
 
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.runtime.function.AbstractFunction;

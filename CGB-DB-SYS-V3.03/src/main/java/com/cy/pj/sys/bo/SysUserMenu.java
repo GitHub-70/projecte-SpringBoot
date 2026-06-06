@@ -1,4 +1,4 @@
-package com.cy.pj.sys.po;
+package com.cy.pj.sys.bo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.List;
 
 /**
  * 封装用户菜单信息
+ *
+ * BO: business object：业务对象BO把业务逻辑封转为一个对象，
+ * 通过调用DAO方法，结合PO或VO进行业务操作PO组合，如投保人是一个PO，被保险人是一个PO，
+ * 险种信息是一个PO等等，他们组合气来是第一张保单的BO
  */
 
 public class SysUserMenu implements Serializable{

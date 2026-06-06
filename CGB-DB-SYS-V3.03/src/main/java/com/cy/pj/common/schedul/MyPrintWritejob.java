@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  *
  */
-@Component
+//@Component
 public class MyPrintWritejob implements Job{
 	
 	private Logger logger = LoggerFactory.getLogger(MyPrintWritejob.class);
